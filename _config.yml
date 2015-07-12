@@ -47,6 +47,11 @@ kramdown:
     coderay_bold_every: 10
     coderay_css: class
 
+analytics:
+  provider: google
+  google:
+    tracking_id: "UA-65046797-1"
+
 sass:
     style: :compressed
 
