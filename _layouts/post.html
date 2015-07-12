@@ -1,5 +1,9 @@
-{% include head.html %}
 
+{% if page.image.feature %}
+    {% include head.html %}
+{% else %}
+    {% include head-dark.html %}
+{% endif %}
 <section class="article">
 
 {% if page.image.feature %}
@@ -9,11 +13,7 @@
   {% else %}
   <div class="featured-image" style="background-image: url({{ site.url }}/images/{{ page.image.feature }})"></div>
   {% endif %}
-{% else %}
-  <div class="overlay"></div>
-  <div class="featured-image" style="background-image: url({{ site.url }}/images/typewriter.jpg)"></div>
 {% endif %}
-
 
       <article class="wrap post">
         <header class="post-header">
