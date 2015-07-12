@@ -26,6 +26,8 @@ tools:
 links:
   - title: About
     url: /about
+  - title: Posts
+    url: /posts
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    Europe/London
