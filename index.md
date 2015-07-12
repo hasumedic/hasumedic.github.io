@@ -1,7 +1,8 @@
 ---
 layout: home
 title: "Recent Posts"
-tags: [Jekyll, theme, responsive, blog, template]
+tags: [Posts, Software, Blog]
+description: "Recent posts from hasumedic's blog"
 image:
-  feature: typewriter.jpg
+  feature: bg.jpg
 ---
