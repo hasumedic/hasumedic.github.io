@@ -143,6 +143,10 @@ input {
     padding-top: $lh*2;
 }
 
+.margin-bottom{
+    margin-bottom: 5px;
+}
+
 /************ Layout *************/
 
 #bump {
@@ -361,7 +365,7 @@ header.site-header nav {
         display: block;
         float: none;
         
-        lh h2 {
+        h2 {
             margin-bottom: $lh*1.5;
         }
         
