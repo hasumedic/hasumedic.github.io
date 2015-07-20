@@ -1,4 +1,5 @@
 {% if page.tags.size > 0 %}
+<div class="tags">
     <span>Tags:</span>
     {% for tag in page.tags %}
         <a href="{{site.url}}/tag/{{ tag | slugify }}">{{ tag }}</a>
@@ -6,4 +7,5 @@
         -
         {% endunless %}
     {% endfor %}
+</div>
 {% endif %}
