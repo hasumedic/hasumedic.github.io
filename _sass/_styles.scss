@@ -556,6 +556,12 @@ header.site-header nav {
             @include transit(all,.2s,ease)
         }
     }
+
+    .share-item {
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 /* Footer Stuff */
@@ -656,7 +662,7 @@ footer {
 }
 
 .disqus {
-    margin-top: $lh*3;
+    margin-top: $lh*2;
 }
 
 
