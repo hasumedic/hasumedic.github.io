@@ -5,13 +5,130 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-07-20T22:07:40+01:00</updated>
+<updated>2015-07-25T17:25:33+01:00</updated>
 <id>/</id>
 <author>
   <name>Alex Salguero</name>
   <uri>/</uri>
   <email>hasumedic@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Start a tech blog using Jekyll Part I]]></title>
+  <link rel="alternate" type="text/html" href="/blog/start-a-tech-blog-using-jekyll-part-i" />
+  <id>/blog/start-a-tech-blog-using-jekyll-part-i</id>
+  <published>2015-07-25T00:00:00+01:00</published>
+  <updated>2015-07-25T00:00:00+01:00</updated>
+  <author>
+    <name>Alex Salguero</name>
+    <uri></uri>
+    <email>hasumedic@gmail.com</email>
+  </author>
+  <content type="html">&lt;h1 id=&quot;choosing-the-platform&quot;&gt;Choosing the platform&lt;/h1&gt;
+
+&lt;p&gt;Every time you start a new project you should first consider which tools are at your disposal, evaluate them and try to use the right one for the job at hand. Often times though, is easy to get swamped by the amount of available tools out there. One way that helps me triaging amongst them is to come up with a list of requirements that the tool should allow you to do. In my case they were:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;It has to be &lt;strong&gt;simple&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;Allow for &lt;strong&gt;static&lt;/strong&gt; content generation. No need of using a DB&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Markdown support&lt;/strong&gt;. Having a standard format helps greatly for editing and content migrations&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Code highlighting&lt;/strong&gt;. We’re gonna be talking code at the end of the day, right?&lt;/li&gt;
+  &lt;li&gt;Pre-baked &lt;strong&gt;themes&lt;/strong&gt;. Yeah, I suck at front-end ;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With that in mind, I discarded few obvious choices like Wordpress or Blogger. I’ve hosted blogs on those platforms before and although they might seem simple at first, they can become a real pain to maintain.&lt;/p&gt;
+
+&lt;p&gt;I also considered other options like Ghost + Buster or Sculpin, but I ended up choosing Jekyll because it ticked all the boxes, it is extremely simple and it has massive adoption.&lt;/p&gt;
+
+&lt;h1 id=&quot;setting-things-up&quot;&gt;Setting things up&lt;/h1&gt;
+
+&lt;p&gt;Hosting your own page using &lt;a href=&quot;https://pages.github.com/&quot;&gt;Github Pages&lt;/a&gt; is quite straight forward. Just follow their instructions to set up your repository and you will get a hello world page up in a matter of seconds!&lt;/p&gt;
+
+&lt;p&gt;Part of the beauty of this way of blogging is that everything is in source control, allowing you to easily rollback to whichever version you see fit very quickly. You can deploy as often as you like by simply pushing your master branch.&lt;/p&gt;
+
+&lt;p&gt;Github Pages provides support for Jekyll by default. &lt;a href=&quot;http://jekyllrb.com/docs/quickstart/&quot;&gt;Jekyll&lt;/a&gt; is an engine which generates static sites based on few configuration and content files. Again, you just need to follow the &lt;a href=&quot;http://jekyllrb.com/docs/installation/&quot;&gt;installation&lt;/a&gt; steps to get all the necessary tools ready on your machine to start generating content.&lt;/p&gt;
+
+&lt;p&gt;If everything is installed correctly, you should be able to run a Jekyll web server locally, which will monitor your project and re-build your site every time a change occurs. That is except if changes are in the “_config.yml” file (which we will discuss in a minute). If they are, you will need to re-start the local server manually. To start the server just type:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;jekyll serve&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You should be able to access your site by visiting “http://localhost:4000/” in your browser.&lt;/p&gt;
+
+&lt;h1 id=&quot;make-it-your-own&quot;&gt;Make it your own&lt;/h1&gt;
+
+&lt;h2 id=&quot;theming&quot;&gt;Theming&lt;/h2&gt;
+&lt;p&gt;Once the tools are ready, you just need to start creating content… but starting from scratch can be a bit daunting. That’s why I think the best way to start is to pick an already cooked theme and tweak it to your liking.&lt;/p&gt;
+
+&lt;p&gt;There are many &lt;a href=&quot;https://github.com/jekyll/jekyll/wiki/Themes&quot;&gt;themes&lt;/a&gt; &lt;a href=&quot;http://drjekyllthemes.github.io/&quot;&gt;available&lt;/a&gt; for you to choose from. Since I like big pictures and big fonts, I chose &lt;a href=&quot;http://jekyll.gtat.me/about/&quot;&gt;Balzac&lt;/a&gt; from &lt;a href=&quot;https://twitter.com/twnsndco&quot;&gt;@twnsndco&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;configuration&quot;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;Next step is to set the values in the “_config.yml” file. This file contains some configuration values that are used by Jekyll when building the site. Here are some interesting ones:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#Canonical URL&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;canonical&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;        &lt;span class=&quot;l-Scalar-Plain&quot;&gt;http://www.hasumedic.com&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Which highlighter and markdown libraries to use to evaluate and transform your content&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;highlighter&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;l-Scalar-Plain&quot;&gt;pygments&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;markdown&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;kramdown&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Which files to include/exclude when building the static site&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p-Indicator&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;.nojekyll&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;exclude&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p-Indicator&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;lib&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;config.rb&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Capfile&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;config&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;log&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;_plugins&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;tmp&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;publish.sh&amp;quot;&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can find more configuration options for your “_config.yml” in &lt;a href=&quot;http://jekyllrb.com/docs/configuration&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;But it’s not only about default configuration values. You can also define your own variables as well which will then become available to the template engine under the variable “site”.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;l-Scalar-Plain&quot;&gt;owner&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# This value will be available in your templates as &amp;quot;site.owner.twitter&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;twitter&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;        &lt;span class=&quot;l-Scalar-Plain&quot;&gt;hasumedic&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# You can set your 3rd party configuration values in here too&lt;/span&gt;
+&lt;span class=&quot;l-Scalar-Plain&quot;&gt;analytics&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;l-Scalar-Plain&quot;&gt;google&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;l-Scalar-Plain&quot;&gt;tracking_id&lt;/span&gt;&lt;span class=&quot;p-Indicator&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;UA-1234567890-0&amp;quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;front-end&quot;&gt;Front-end&lt;/h2&gt;
+&lt;p&gt;After this, is the moment to play around with HTML and CSS for a while, until you get every page looking like you want. It’s important to have a look at &lt;a href=&quot;http://jekyllrb.com/docs/structure/&quot;&gt;Jekyll’s directory structure&lt;/a&gt; to get an understanding of what’s going on.&lt;/p&gt;
+
+&lt;p&gt;The “_posts” folder is the one that Jekyll looks at to find your markdown posts. Starting a new post is as easy as to creating a new file in it, naming it following the convention: “YYYY-mm-dd-{name-of-your-post)].md”.&lt;/p&gt;
+
+&lt;p&gt;There’s the option to also use the “_drafts” folder. This folder contains your WIP for the blog. In combination with libraries such as &lt;a href=&quot;https://github.com/jekyll/jekyll-compose&quot;&gt;jekyll-compose&lt;/a&gt; you can get a nice little workflow for writing and publishing posts.&lt;/p&gt;
+
+&lt;p&gt;Another key directory to take into consideration is the “_layout”. Here you can define the structure of your pages to provide a certain structure to your pages and facilitate re-usability. Then, using &lt;a href=&quot;http://jekyllrb.com/docs/frontmatter/&quot;&gt;Front Matter&lt;/a&gt;, you can quickly set up the layout and specific information of your posts like:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;---
+layout: post
+title: Start a tech blog using Jekyll
+description: &amp;quot;You want to start blogging but not sure how? This step by step should guide you through the process of starting your own blog using Github pages and Jekyll&amp;quot;
+category: blog
+tags: [blog, jekyll, github-pages]
+comments: true
+image:
+    feature: start-a-tech-blog-using-jekyll/blog-1024x768.jpg
+---&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;If I wanted to disable the comments for this page, I’d only need to change the “comments” flag to false. Changing the layout to “post-no-feature” would ignore the feature image at the top of the post. And so on.&lt;/p&gt;
+
+&lt;p&gt;Finally, the “_includes” folder contains those blocks of HTML that you want to re-use in your different layouts. Think of header, footer, GA, comments section, sharing bars, etc.&lt;/p&gt;
+
+&lt;h1 id=&quot;deploying&quot;&gt;Deploying&lt;/h1&gt;
+
+&lt;p&gt;As I mentioned before, deploying your blog is as easy as to pushing your master branch. Github pages will automatically run Jekyll on your repository, and will generate the static content in a folder called “_site” as per default. &lt;/p&gt;
+
+&lt;p&gt;You’ll note though, that when you access your site you’ll need to do it on {your_github_name}.github.io/_site/. If you don’t want that to happen, just generate your content at your repository’s root level.&lt;/p&gt;
+
+&lt;p&gt;You can change where this content gets generated in your “_config.yml”:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;destination: {your_location_here}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You could think on using something like htaccess or similar, but they are disabled in Github pages for security reasons.&lt;/p&gt;
+
+&lt;p&gt;In the next post, I’ll explain how you can add some extra stuff to your blog like a recent posts section, GA or comments. Also, another way to handle the deployment of the blog.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/blog/start-a-tech-blog-using-jekyll-part-i&quot;&gt;Start a tech blog using Jekyll Part I&lt;/a&gt; was originally published by Alex Salguero at &lt;a href=&quot;&quot;&gt;Alex Salguero&lt;/a&gt; on July 25, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>

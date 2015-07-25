@@ -1,0 +1,313 @@
+
+
+    <!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Start a tech blog using Jekyll Part I</title>
+<meta name="description" content="You want to start blogging but not sure how? This step by step should guide you through the process of starting your own blog using Github pages and Jekyll">
+<meta name="keywords" content="blog, jekyll, github-pages">
+
+
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Start a tech blog using Jekyll Part I">
+<meta property="og:description" content="You want to start blogging but not sure how? This step by step should guide you through the process of starting your ...">
+<meta property="og:url" content="/blog/start-a-tech-blog-using-jekyll-part-i">
+<meta property="og:site_name" content="Alex Salguero">
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Alex Salguero Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Type -->
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic" rel='stylesheet' type='text/css' />
+<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/css/entypo.css" media="all">
+
+<!-- In order to use Calendas Plus, you must first purchase it. Then, create a font-face package using FontSquirrel.
+<link rel='stylesheet' href='/assets/cal.css' media='all' />
+-->
+
+
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/i.css">
+
+<!-- Fresh Squeezed jQuery -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+
+<div id="bump">
+  <body class="">
+    <header class="site-header">
+      <div class="wrap">
+        <hgroup>
+          <h1><a href="/">Alex Salguero</a></h1>
+        </hgroup>
+        <a href="#nav" class="menu"><span class='icons'>☰</span></a>
+        <nav role="navigation">
+          <ul>
+            <li>
+              <a href="/" title="Alex Salguero">Home</a>
+            </li>
+            
+            
+            <li><a href="/about" >About</a></li>
+            
+            <li><a href="/posts" >Posts</a></li>
+            
+
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+<section class="article">
+
+
+  <div class="overlay"></div>
+  
+  <div class="featured-image" style="background-image: url(/images/start-a-tech-blog-using-jekyll/blog-1024x768.jpg)"></div>
+  
+
+
+      <article class="wrap post">
+        <header class="post-header">
+          <hgroup>
+            <h1>Start a tech blog using Jekyll Part I</h1>
+            <p class="date">Jul 25, 2015</p>
+            <p class="intro">You want to start blogging but not sure how? This step by step should guide you through the process of starting your own blog using Github pages and Jekyll</p>
+          </hgroup>
+        </header>
+
+        <h1 id="choosing-the-platform">Choosing the platform</h1>
+
+<p>Every time you start a new project you should first consider which tools are at your disposal, evaluate them and try to use the right one for the job at hand. Often times though, is easy to get swamped by the amount of available tools out there. One way that helps me triaging amongst them is to come up with a list of requirements that the tool should allow you to do. In my case they were:</p>
+
+<ul>
+  <li>It has to be <strong>simple</strong></li>
+  <li>Allow for <strong>static</strong> content generation. No need of using a DB</li>
+  <li><strong>Markdown support</strong>. Having a standard format helps greatly for editing and content migrations</li>
+  <li><strong>Code highlighting</strong>. We’re gonna be talking code at the end of the day, right?</li>
+  <li>Pre-baked <strong>themes</strong>. Yeah, I suck at front-end ;)</li>
+</ul>
+
+<p>With that in mind, I discarded few obvious choices like Wordpress or Blogger. I’ve hosted blogs on those platforms before and although they might seem simple at first, they can become a real pain to maintain.</p>
+
+<p>I also considered other options like Ghost + Buster or Sculpin, but I ended up choosing Jekyll because it ticked all the boxes, it is extremely simple and it has massive adoption.</p>
+
+<h1 id="setting-things-up">Setting things up</h1>
+
+<p>Hosting your own page using <a href="https://pages.github.com/">Github Pages</a> is quite straight forward. Just follow their instructions to set up your repository and you will get a hello world page up in a matter of seconds!</p>
+
+<p>Part of the beauty of this way of blogging is that everything is in source control, allowing you to easily rollback to whichever version you see fit very quickly. You can deploy as often as you like by simply pushing your master branch.</p>
+
+<p>Github Pages provides support for Jekyll by default. <a href="http://jekyllrb.com/docs/quickstart/">Jekyll</a> is an engine which generates static sites based on few configuration and content files. Again, you just need to follow the <a href="http://jekyllrb.com/docs/installation/">installation</a> steps to get all the necessary tools ready on your machine to start generating content.</p>
+
+<p>If everything is installed correctly, you should be able to run a Jekyll web server locally, which will monitor your project and re-build your site every time a change occurs. That is except if changes are in the “_config.yml” file (which we will discuss in a minute). If they are, you will need to re-start the local server manually. To start the server just type:</p>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">jekyll serve</code></pre></div>
+
+<p>You should be able to access your site by visiting “http://localhost:4000/” in your browser.</p>
+
+<h1 id="make-it-your-own">Make it your own</h1>
+
+<h2 id="theming">Theming</h2>
+<p>Once the tools are ready, you just need to start creating content… but starting from scratch can be a bit daunting. That’s why I think the best way to start is to pick an already cooked theme and tweak it to your liking.</p>
+
+<p>There are many <a href="https://github.com/jekyll/jekyll/wiki/Themes">themes</a> <a href="http://drjekyllthemes.github.io/">available</a> for you to choose from. Since I like big pictures and big fonts, I chose <a href="http://jekyll.gtat.me/about/">Balzac</a> from <a href="https://twitter.com/twnsndco">@twnsndco</a>.</p>
+
+<h2 id="configuration">Configuration</h2>
+<p>Next step is to set the values in the “_config.yml” file. This file contains some configuration values that are used by Jekyll when building the site. Here are some interesting ones:</p>
+
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="c1">#Canonical URL</span>
+<span class="l-Scalar-Plain">canonical</span><span class="p-Indicator">:</span>        <span class="l-Scalar-Plain">http://www.hasumedic.com</span>
+
+<span class="c1"># Which highlighter and markdown libraries to use to evaluate and transform your content</span>
+<span class="l-Scalar-Plain">highlighter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pygments</span>
+<span class="l-Scalar-Plain">markdown</span><span class="p-Indicator">:</span>    <span class="l-Scalar-Plain">kramdown</span>
+
+<span class="c1"># Which files to include/exclude when building the static site</span>
+<span class="l-Scalar-Plain">include</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;.nojekyll&quot;</span><span class="p-Indicator">]</span>
+<span class="l-Scalar-Plain">exclude</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;lib&quot;</span><span class="p-Indicator">,</span> <span class="s">&quot;config.rb&quot;</span><span class="p-Indicator">,</span> <span class="s">&quot;Capfile&quot;</span><span class="p-Indicator">,</span> <span class="s">&quot;config&quot;</span><span class="p-Indicator">,</span> <span class="s">&quot;log&quot;</span><span class="p-Indicator">,</span> <span class="s">&quot;_plugins&quot;</span><span class="p-Indicator">,</span> <span class="s">&quot;tmp&quot;</span><span class="p-Indicator">,</span> <span class="s">&quot;publish.sh&quot;</span><span class="p-Indicator">]</span></code></pre></div>
+
+<p>You can find more configuration options for your “_config.yml” in <a href="http://jekyllrb.com/docs/configuration">here</a>.</p>
+
+<p>But it’s not only about default configuration values. You can also define your own variables as well which will then become available to the template engine under the variable “site”.</p>
+
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">owner</span><span class="p-Indicator">:</span>
+  <span class="c1"># This value will be available in your templates as &quot;site.owner.twitter&quot;</span>
+  <span class="l-Scalar-Plain">twitter</span><span class="p-Indicator">:</span>        <span class="l-Scalar-Plain">hasumedic</span>
+
+<span class="c1"># You can set your 3rd party configuration values in here too</span>
+<span class="l-Scalar-Plain">analytics</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">google</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">tracking_id</span><span class="p-Indicator">:</span> <span class="s">&quot;UA-1234567890-0&quot;</span></code></pre></div>
+
+<h2 id="front-end">Front-end</h2>
+<p>After this, is the moment to play around with HTML and CSS for a while, until you get every page looking like you want. It’s important to have a look at <a href="http://jekyllrb.com/docs/structure/">Jekyll’s directory structure</a> to get an understanding of what’s going on.</p>
+
+<p>The “_posts” folder is the one that Jekyll looks at to find your markdown posts. Starting a new post is as easy as to creating a new file in it, naming it following the convention: “YYYY-mm-dd-{name-of-your-post)].md”.</p>
+
+<p>There’s the option to also use the “_drafts” folder. This folder contains your WIP for the blog. In combination with libraries such as <a href="https://github.com/jekyll/jekyll-compose">jekyll-compose</a> you can get a nice little workflow for writing and publishing posts.</p>
+
+<p>Another key directory to take into consideration is the “_layout”. Here you can define the structure of your pages to provide a certain structure to your pages and facilitate re-usability. Then, using <a href="http://jekyllrb.com/docs/frontmatter/">Front Matter</a>, you can quickly set up the layout and specific information of your posts like:</p>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">---
+layout: post
+title: Start a tech blog using Jekyll
+description: &quot;You want to start blogging but not sure how? This step by step should guide you through the process of starting your own blog using Github pages and Jekyll&quot;
+category: blog
+tags: [blog, jekyll, github-pages]
+comments: true
+image:
+    feature: start-a-tech-blog-using-jekyll/blog-1024x768.jpg
+---</code></pre></div>
+
+<p>If I wanted to disable the comments for this page, I’d only need to change the “comments” flag to false. Changing the layout to “post-no-feature” would ignore the feature image at the top of the post. And so on.</p>
+
+<p>Finally, the “_includes” folder contains those blocks of HTML that you want to re-use in your different layouts. Think of header, footer, GA, comments section, sharing bars, etc.</p>
+
+<h1 id="deploying">Deploying</h1>
+
+<p>As I mentioned before, deploying your blog is as easy as to pushing your master branch. Github pages will automatically run Jekyll on your repository, and will generate the static content in a folder called “_site” as per default. </p>
+
+<p>You’ll note though, that when you access your site you’ll need to do it on {your_github_name}.github.io/_site/. If you don’t want that to happen, just generate your content at your repository’s root level.</p>
+
+<p>You can change where this content gets generated in your “_config.yml”:</p>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">destination: {your_location_here}</code></pre></div>
+
+<p>You could think on using something like htaccess or similar, but they are disabled in Github pages for security reasons.</p>
+
+<p>In the next post, I’ll explain how you can add some extra stuff to your blog like a recent posts section, GA or comments. Also, another way to handle the deployment of the blog.</p>
+
+
+      
+<div class="tags">
+    <span>Tags:</span>
+    
+        <a href="/tag/blog">blog</a>
+        
+        -
+        
+    
+        <a href="/tag/jekyll">jekyll</a>
+        
+        -
+        
+    
+        <a href="/tag/github-pages">github-pages</a>
+        
+    
+</div>
+
+
+      <a href="https://twitter.com/share" class="twitter-share-button share-item" data-via="hasumedic" data-size="large" data-count="none">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      
+<aside class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'hasublog';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+      </article>
+
+    </section>
+</div>
+
+<div class="push"></div>
+  <footer>
+    <aside class="wrap">
+      <ol class="prev-posts">
+        <p class="list-title">Recent Posts</p>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/start-a-tech-blog-using-jekyll-part-i" title="Start a tech blog using Jekyll Part I">Start a tech blog using Jekyll Part I </a></span>
+              <span class="date">Jul 25, 2015</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/hello-world" title="Hello world!">Hello world! </a></span>
+              <span class="date">Jul 15, 2015</span>
+            </li>
+        
+      </ol>
+
+      <div class="social">
+        <ul>
+            <li>
+                <a id="mail" href="mailto:hasumedic@gmail.com">
+                    <span class="foot-link">
+                        <span class="icon-mail"></span> Contact Me
+                    </span>
+                </a>
+            </li>
+
+            
+            <li>
+                <a id="twit" href="https://twitter.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-twitter"></span> @hasumedic</span></a>
+            </li>
+            
+
+
+            
+            <li>
+                <a id="github" href="https://github.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-github"></span> Github</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    </aside>
+    <small>&copy; 2015 Alex Salguero. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://jekyll.gtat.me/about">Balzac</a> theme.</small>
+  </footer>
+
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-65046797-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+  <!-- If they're out, get some from the cellar -->
+  <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+  <script src="/assets/js/retina.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="/assets/js/scripts.js"></script>
+
+
+  </body>
+</html>
+
