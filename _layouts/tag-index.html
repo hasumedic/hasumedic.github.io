@@ -14,14 +14,16 @@
                     {% if tag == page.tag %}
                         {% if write_year %}
                             {% assign write_year = false %}
-                            <!-- years-->
-                            <h3 class="margin-bottom">{{ post.date | date: '%Y' }}</h3>
-                            <hr/>
-                            {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-                            {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-                            {% if year != nyear %}
-                                {% assign write_year = true %}
-                            {% endif %}
+                            {% unless post.next %}
+                                <!-- years-->
+                                <h3 class="margin-bottom">{{ post.date | date: '%Y' }}</h3>
+                                <hr/>
+                                {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+                                {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
+                                {% if year != nyear %}
+                                    {% assign write_year = true %}
+                                {% endif %}
+                            {% endunless %}
                         {% endif %}
                     <article>
                         {% if post.link %}
@@ -31,7 +33,7 @@
                         </h3>
                         {% else %}
                         <h3><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h3>
-                        <p>{{ post.description | strip_html | truncate: 160 }}</p>
+                            <p>{{ post.description | strip_html | truncate: 160 }}</p>
                         {% endif %}
                     </article>
                     {% endif %}

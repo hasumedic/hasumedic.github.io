@@ -11,6 +11,8 @@ module Jekyll
       tag_title_prefix = site.config['tag_title_prefix'] || 'Tagged as &ldquo;'
       tag_title_suffix = site.config['tag_title_suffix'] || '&rdquo;'
       self.data['title'] = "#{tag_title_prefix}#{tag}#{tag_title_suffix}"
+      self.render(site.layouts, site.site_payload)
+      self.write(site.dest)
     end
   end
   class TagGenerator < Generator
@@ -19,15 +21,9 @@ module Jekyll
       if site.layouts.key? 'tag-index'
         dir = site.config['tag_dir'] || 'tag'
         site.tags.keys.each do |tag|
-          write_tag_index(site, File.join(dir, tag.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')), tag)
+          site.pages << TagIndex.new(site, site.source, File.join(dir, tag.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')), tag)
         end
       end
-    end
-    def write_tag_index(site, dir, tag)
-      index = TagIndex.new(site, site.source, dir, tag)
-      index.render(site.layouts, site.site_payload)
-      index.write(site.dest)
-      site.pages << index
     end
   end
 end
