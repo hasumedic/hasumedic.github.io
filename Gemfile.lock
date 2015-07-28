@@ -126,6 +126,7 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  pygments.rb (~> 0.6.3)
 
 BUNDLED WITH
    1.10.5
