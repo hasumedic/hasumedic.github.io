@@ -89,19 +89,45 @@
                     
                         
                             
-                            <!-- years-->
-                            <h3 class="margin-bottom">2015</h3>
-                            <hr/>
                             
-                            
-                            
+                                <!-- years-->
+                                <h3 class="margin-bottom">2015</h3>
+                                <hr/>
+                                
+                                
+                                
+                                    
                                 
                             
                         
                     <article>
                         
+                        <h3><a href="/blog/start-a-tech-blog-using-jekyll-part-ii" title="Start a tech blog using Jekyll Part II">Start a tech blog using Jekyll Part II</a></h3>
+                            <p></p>
+                        
+                    </article>
+                    
+                
+                    
+                    
+                
+            
+                
+                <!-- checking for tags -->
+                
+                    
+                    
+                
+                    
+                    
+                        
+                            
+                            
+                        
+                    <article>
+                        
                         <h3><a href="/blog/start-a-tech-blog-using-jekyll-part-i" title="Start a tech blog using Jekyll Part I">Start a tech blog using Jekyll Part I</a></h3>
-                        <p>You want to start blogging but not sure how? This step by step should guide you through the process of starting your own blog using Github pages and Jekyll</p>
+                            <p>You want to start blogging but not sure how? This step by step should guide you through the process of starting your own blog using Github pages and Jekyll</p>
                         
                     </article>
                     
@@ -125,6 +151,11 @@
     <aside class="wrap">
       <ol class="prev-posts">
         <p class="list-title">Recent Posts</p>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/start-a-tech-blog-using-jekyll-part-ii" title="Start a tech blog using Jekyll Part II">Start a tech blog using Jekyll Part II </a></span>
+              <span class="date">Jul 29, 2015</span>
+            </li>
          <!-- for1 -->
             <li>
               <span class="recent-title"><a href="/blog/start-a-tech-blog-using-jekyll-part-i" title="Start a tech blog using Jekyll Part I">Start a tech blog using Jekyll Part I </a></span>
@@ -168,13 +199,22 @@
 
 
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        if (document.location.hostname.search("hasumedic.com") !== -1) {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-65046797-1', 'auto');
-        ga('send', 'pageview');
+            ga('create', 'UA-65046797-1', 'auto');
+            ga('send', 'pageview');
+        }
     </script>
 
 
