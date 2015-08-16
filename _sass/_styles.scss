@@ -75,6 +75,7 @@ code {
     border-radius: 4px;
     margin-bottom: $lh;
     overflow-x: scroll;
+    line-height: 115%;
 
     code {
         color: $white;
@@ -83,16 +84,12 @@ code {
         .lineno {
             margin-right: $lh/2;
             color: $grey-light;
-            line-height: 2em;
         }
         .nt {
             color: #c85b5c;
         }
         .na {
             color: #f0e687;
-        }
-        .s {
-            color: #87ceeb;
         }
     }
 }
