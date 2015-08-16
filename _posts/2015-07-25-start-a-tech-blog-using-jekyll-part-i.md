@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Start a tech blog using Jekyll Part I
-description: "You want to start blogging but not sure how? This step by step should guide you through the process of 
-starting your own blog using Github pages and Jekyll"
+description: "You want to start blogging but not sure how? This step by step should guide you through the process of starting your own blog using Github pages and Jekyll"
+introduction: "You want to start blogging but not sure how? This step by step should guide you through the process of starting your own blog using Github pages and Jekyll"
 category: blog
 tags: [blog, jekyll, github-pages]
 comments: true
