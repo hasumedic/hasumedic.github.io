@@ -1,0 +1,413 @@
+
+
+    <!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Working with scala collections</title>
+<meta name="description" content="Little tour through some of the scala collections and their characteristics.">
+<meta name="keywords" content="scala, collections">
+
+
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Working with scala collections">
+<meta property="og:description" content="Little tour through some of the scala collections and their characteristics.">
+<meta property="og:url" content="/blog/scala-collections">
+<meta property="og:site_name" content="Alex Salguero">
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Alex Salguero Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Type -->
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic" rel='stylesheet' type='text/css' />
+<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/css/entypo.css" media="all">
+<link rel="stylesheet" href="/assets/css/highlight.css" media="all">
+
+<!-- In order to use Calendas Plus, you must first purchase it. Then, create a font-face package using FontSquirrel.
+<link rel='stylesheet' href='/assets/cal.css' media='all' />
+-->
+
+
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/i.css">
+
+<!-- Fresh Squeezed jQuery -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+
+<div id="bump">
+  <body class="">
+    <header class="site-header">
+      <div class="wrap">
+        <hgroup>
+          <h1><a href="/">Alex Salguero</a></h1>
+        </hgroup>
+        <a href="#nav" class="menu"><span class='icons'>☰</span></a>
+        <nav role="navigation">
+          <ul>
+            <li>
+              <a href="/" title="Alex Salguero">Home</a>
+            </li>
+            
+            
+            <li><a href="/about" >About</a></li>
+            
+            <li><a href="/posts" >Posts</a></li>
+            
+
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+<section class="article">
+
+
+  <div class="overlay"></div>
+  
+  <div class="featured-image" style="background-image: url(/images/scala-collections/collections.jpg)"></div>
+  
+
+
+      <article class="wrap post">
+        <header class="post-header">
+          <hgroup>
+            <h1>Working with scala collections</h1>
+            <p class="date">Aug 16, 2015</p>
+            <p class="intro"></p>
+          </hgroup>
+        </header>
+
+        <p>One of the first things that makes people feel attracted to scala is its powerful collection’s library. For those developers coming from Java or C# backgrounds, having powerful collections at hand should not come as a surprise. But for others coming from C or PHP backgrounds it might open a world of possibilities that were not available to them before.</p>
+
+<h1 id="immutability">Immutability</h1>
+
+<p>For me, the cornerstone of scala collections is the fact that they are immutable. An immutable collection looks pretty much like any other collection, but the operations applied to them don’t change the original collection’s state but return a new collection instead:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// new immutable list with 4 elements</span>
+<span class="k">val</span> <span class="n">myList</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
+
+<span class="c1">// append integer 5 to the list</span>
+<span class="k">val</span> <span class="n">modifiedList</span> <span class="k">=</span> <span class="n">myList</span> <span class="o">:+</span> <span class="mi">5</span>
+
+<span class="c1">// size is 4</span>
+<span class="n">myList</span><span class="o">.</span><span class="n">size</span>
+
+<span class="c1">// size is 5</span>
+<span class="n">modifiedList</span><span class="o">.</span><span class="n">size</span></code></pre></div>
+
+<p>Methods on immutable collections are side effect free. You can always assume that their state won’t change at any given point in time during your program’s execution, which makes them simpler to work with and less error prone.</p>
+
+<p>Scala works by default with immutable collections, but if you really need to work with mutable ones, you can also do so. You only need to import the mutable collection’s package:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">import</span> <span class="nn">scala.collection.mutable</span></code></pre></div>
+
+<h1 id="standard-collections">Standard collections</h1>
+
+<p>The standard library comes with a good amount of collections, organized in the following hierarchy:</p>
+
+<figure>
+	<img src="/images/scala-collections/collections.immutable.png" />
+	<figcaption>Green: Abstract/Trait - Blue: Concrete Implementation</figcaption>
+</figure>
+
+<p>All of them inherit from Traversable and Iterable. This allows to loop through them using ‘foreach’ or with an iterator, to count their elements, to apply maps and reduces and all the other set of available <a href="http://www.scala-lang.org/api/current/index.html#scala.collection.Traversable">functions</a>.</p>
+
+<p>Collection methods return the types that makes more sense to the operation applied to that collection. For instance, when operating on a List or a Set, we’ll get the same type when applying methods on them:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// flattening a list of lists results in a list</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">3</span><span class="o">)).</span><span class="n">flatten</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+
+<span class="c1">// flattening a set of sets results in a set</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">Set</span><span class="o">(</span><span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">3</span><span class="o">)).</span><span class="n">flatten</span>
+<span class="n">res1</span><span class="k">:</span> <span class="kt">scala.collection.immutable.Set</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+
+<span class="c1">// the operation will result on the outer collection type</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">List</span><span class="o">(</span><span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">2</span><span class="o">),</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">3</span><span class="o">)).</span><span class="n">flatten</span>
+<span class="n">res2</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span></code></pre></div>
+
+<h2 id="conversions">Conversions</h2>
+
+<p>What we just saw doesn’t mean that once you start working with one collection type you’re bound to it for life. You can convert from one type of collection to another using converters:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// from List to Set</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">).</span><span class="n">toSet</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">scala.collection.immutable.Set</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span>
+
+<span class="c1">// from Map to List</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">Map</span><span class="o">(</span><span class="s">&quot;a&quot;</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="o">,</span> <span class="s">&quot;b&quot;</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
+<span class="n">res1</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">((</span><span class="n">a</span><span class="o">,</span><span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="n">b</span><span class="o">,</span><span class="mi">2</span><span class="o">))</span>
+
+<span class="c1">// not all conversions work straight away</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="n">toMap</span>
+<span class="o">&lt;</span><span class="n">console</span><span class="k">&gt;:</span><span class="mi">8</span><span class="k">:</span> <span class="kt">error:</span> <span class="kt">Cannot</span> <span class="kt">prove</span> <span class="kt">that</span> <span class="kt">Int</span> <span class="k">&lt;:</span><span class="kt">&lt;</span> <span class="o">(</span><span class="kt">T</span><span class="o">,</span> <span class="kt">U</span><span class="o">).</span>
+              <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="n">toMap</span>
+
+<span class="c1">// but if we add the pairs to the keys...</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="nc">List</span><span class="o">((</span><span class="mi">1</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span> <span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">)).</span><span class="n">toMap</span>
+<span class="n">res2</span><span class="k">:</span> <span class="kt">scala.collection.immutable.Map</span><span class="o">[</span><span class="kt">Int</span>,<span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">2</span><span class="o">)</span></code></pre></div>
+
+<h1 id="which-one-should-i-use">Which one should I use?</h1>
+
+<p>I’ve met many developers who just fall in love with a single data structure and they use it always, everywhere. This actually defies the purpose of having such a rich collections library, since each of its types are better in certain scenarios and worse in others.</p>
+
+<h2 id="sequences">Sequences</h2>
+
+<p>The main properties of sequences is that they have a length and their elements’ positions are indexed. Within the Sequence trait there are two subtraits: LinearSeq and IndexedSeq. The former is more optimized towards operations over its head and tail, whereas the latter has better performance on apply and length.</p>
+
+<p>This makes LinearSeq like Lists a better candidate for those algorithms that are going to process their elements accessing the <strong>head</strong> often, or <strong>prepending</strong> elements often. On the other hand, an IndexedSeq Vector might be better candidate if methods like <strong>apply</strong> are called often on the collection since its complexity is often O(1).</p>
+
+<p>Sequences have a very interesting implementation of lazy lists, called <a href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Stream">Streams</a>, which we’ll see in more detail later.</p>
+
+<h2 id="sets">Sets</h2>
+
+<p>The most important characteristic of sets is that they do not contain duplicate elements. This property makes them ideal for those scenarios where it does not really matter how many times an element is in the collection, but only if it contains the element or not.</p>
+
+<p>A very absurd scenario would be to determine if an article contains a given word:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">article</span> <span class="k">=</span> <span class="s">&quot;This is a very interesting article about Scala collections. This article contains the word article several times.&quot;</span>
+
+<span class="c1">//transforming a String to a Set without repeated words</span>
+<span class="k">def</span> <span class="n">hasWord</span><span class="o">(</span><span class="n">w</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">).</span><span class="n">toSet</span><span class="o">.</span><span class="n">contains</span><span class="o">(</span><span class="n">w</span><span class="o">)</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">hasWord</span><span class="o">(</span><span class="s">&quot;article&quot;</span><span class="o">)</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">hasWord</span><span class="o">(</span><span class="s">&quot;Java&quot;</span><span class="o">)</span>
+<span class="n">res1</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span>
+
+<span class="c1">// given that String is also a collection, we could have done it directly, but this was just an illustrative example</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">article</span><span class="o">.</span><span class="n">contains</span><span class="o">(</span><span class="s">&quot;article&quot;</span><span class="o">)</span>
+<span class="n">res2</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span></code></pre></div>
+
+<p>Beware!! There’s quite a big gotcha when dealing with very small Sets which I stomped on and could not figure out. Check this:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">s1</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">)</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">s2</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">5</span> <span class="o">,</span><span class="mi">4</span> <span class="o">,</span><span class="mi">3</span> <span class="o">,</span><span class="mi">2</span> <span class="o">,</span><span class="mi">1</span><span class="o">)</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">s1</span> <span class="n">sameElements</span> <span class="n">s2</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span></code></pre></div>
+
+<p>All seems to work just fine, right? The elements are inserted in different order to the Set but they are, at the end of the day, the same elements. Now look at this:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">s1</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">)</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">s2</span> <span class="k">=</span> <span class="nc">Set</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">1</span><span class="o">)</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">s1</span> <span class="n">sameElements</span> <span class="n">s2</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span></code></pre></div>
+
+<p>Wait, what!?</p>
+
+<p>As it happens, the internal representation of a Set is one when it contains up to 4 elements and another one for 4 and more elements. As a result of that, the internal iterators used to make the comparison produce the elements in the order that they were originally added, hence failing the comparison.</p>
+
+<h2 id="maps">Maps</h2>
+
+<p>The third collection trait is Map. The main property of maps is that they are represented using key - value pairs. This makes them very fast for lookups on known keys, pretty much like indexed sequences.</p>
+
+<p>Typical scenarios where you’ll find maps are to represent countries and their capitals, train stations and the zone they are in, etc. In this example, we are mapping each floor of a building to their list of neighbours:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Neighbour</span><span class="o">(</span><span class="k">val</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">building</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span>
+    <span class="s">&quot;First Floor&quot;</span> <span class="o">-&gt;</span> <span class="nc">List</span><span class="o">(</span><span class="nc">Neighbour</span><span class="o">(</span><span class="s">&quot;Angela&quot;</span><span class="o">),</span> <span class="nc">Neighbour</span><span class="o">(</span><span class="s">&quot;Mark&quot;</span><span class="o">)),</span>
+    <span class="s">&quot;Second Floor&quot;</span> <span class="o">-&gt;</span> <span class="nc">List</span><span class="o">(</span><span class="nc">Neighbour</span><span class="o">(</span><span class="s">&quot;Mikel&quot;</span><span class="o">),</span> <span class="nc">Neighbour</span><span class="o">(</span><span class="s">&quot;Sara&quot;</span><span class="o">),</span>
+    <span class="s">&quot;Penthouse&quot;</span> <span class="o">-&gt;</span> <span class="nc">List</span><span class="o">(</span><span class="nc">Neighbour</span><span class="o">(</span><span class="s">&quot;Pam&quot;</span><span class="o">),</span> <span class="nc">Neighbour</span><span class="o">(</span><span class="s">&quot;Sandra&quot;</span><span class="o">))</span>
+<span class="o">)</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">building</span><span class="o">(</span><span class="s">&quot;Penthouse&quot;</span><span class="o">)</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Neighbour</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">Neighbour</span><span class="o">(</span><span class="nc">Pam</span><span class="o">),</span> <span class="nc">Neighbour</span><span class="o">(</span><span class="nc">Sandra</span><span class="o">))</span></code></pre></div>
+
+<h1 id="streams">Streams</h1>
+
+<p>Streams are a type of collection that I think deserve their own section.</p>
+
+<p>A stream is basically a lazy list. Hence, they are part of the LinearSeq trait. The theory behind them tell us that the tail of a stream is only computed when needed. What this means in practice, is that you can have infinitely long Streams, such as a collection representing all natural or prime numbers.</p>
+
+<p>It’s probably easier to understand with an example. Lets say that we want the first 10 natural numbers that are divisible by 7:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// we define a stream which contains all natural numbers</span>
+<span class="k">def</span> <span class="n">naturals</span><span class="k">:</span> <span class="kt">Stream</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">iterate</span><span class="o">(</span><span class="n">n</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Stream</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">n</span> <span class="o">#::</span> <span class="n">iterate</span><span class="o">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span>
+    <span class="n">iterate</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// then we simply pick the first 10 elements that are divisible by 7</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">naturals</span> <span class="n">filter</span> <span class="o">(</span><span class="k">_</span> <span class="o">%</span> <span class="mi">7</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="n">take</span> <span class="mi">10</span> <span class="n">toList</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">14</span><span class="o">,</span> <span class="mi">21</span><span class="o">,</span> <span class="mi">28</span><span class="o">,</span> <span class="mi">35</span><span class="o">,</span> <span class="mi">42</span><span class="o">,</span> <span class="mi">49</span><span class="o">,</span> <span class="mi">56</span><span class="o">,</span> <span class="mi">63</span><span class="o">)</span></code></pre></div>
+
+<p>Gosh this is powerful! With these techniques, it’s possible to do computations over absurdly large sets of data, or even upon theoretical sets of data. How cool is that?</p>
+
+<p>The “trick” here is on the implementation of the <a href="http://www.scala-lang.org/api/current/index.html#scala.collection.immutable.Stream$$Cons">cons</a> operator. This operator is used to build Streams, concatenating its elements. The implementation goes like this:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">// the list tail &#39;t1&#39; is a call by name parameter!</span>
+<span class="k">def</span> <span class="n">cons</span><span class="o">[</span><span class="kt">T</span><span class="o">](</span><span class="n">hd</span><span class="k">:</span> <span class="kt">T</span><span class="o">,</span> <span class="n">t1</span><span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">Stream</span><span class="o">[</span><span class="kt">T</span><span class="o">])</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Stream</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="o">{</span>
+     <span class="k">def</span> <span class="n">isEmpty</span> <span class="k">=</span> <span class="kc">false</span>
+     <span class="k">def</span> <span class="n">head</span> <span class="k">=</span> <span class="n">hd</span>
+     <span class="k">def</span> <span class="n">tail</span> <span class="k">=</span> <span class="n">tl</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Being the tail a <a href="https://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_name">call by name</a> parameter, it does not get evaluated until it is actually accessed.</p>
+
+<h2 id="performance">Performance</h2>
+
+<p>One always has to keep an eye on performance though. There is “danger” when using these collections naively. We need to be aware how to better traverse them to get the most out of them. For instance, in the previous example, in order to obtain the first 10 elements that are divisible by 7 from the naturals’ stream we’re iterating over the stream one by one and applying a check on each of them, only selecting those that are divisible by 7.</p>
+
+<p>That means that we’re going to go through 64 elements before being done.</p>
+
+<p>If we think on the relationship between natural numbers and the property of “being divisible by”, we can reach the same result as before if we multiply each natural number by the number that we’re looking to be divisible for, in this case 7.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="n">naturals</span> <span class="n">map</span> <span class="o">(</span><span class="k">_</span> <span class="o">*</span> <span class="mi">7</span><span class="o">)</span> <span class="n">take</span> <span class="mi">10</span> <span class="n">toList</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">,</span> <span class="mi">14</span><span class="o">,</span> <span class="mi">21</span><span class="o">,</span> <span class="mi">28</span><span class="o">,</span> <span class="mi">35</span><span class="o">,</span> <span class="mi">42</span><span class="o">,</span> <span class="mi">49</span><span class="o">,</span> <span class="mi">56</span><span class="o">,</span> <span class="mi">63</span><span class="o">)</span></code></pre></div>
+
+<p>This will result on a quicker execution, since only the first 10 elements of the naturals’ stream will be evaluated in order to yield the expected result.</p>
+
+<h1 id="wrapping-up">Wrapping up</h1>
+
+<p>In summary. I like the scala collection’s library a lot. I think it is both powerful and with well designed APIs.</p>
+
+<p>I also think it is important to understand what each collection is meant for, and also it doesn’t hurt to dig deeper into their implementations to know both how they are built and their limitations.</p>
+
+<p>I’m now trying to come up with a small enough sized project to put all these collections at a good use and explore them further. I’ll keep you posted!</p>
+
+
+      
+<div class="tags">
+    <span>Tags:</span>
+    
+        <a href="/tag/scala">scala</a>
+        
+        -
+        
+    
+        <a href="/tag/collections">collections</a>
+        
+    
+</div>
+
+
+      <a href="https://twitter.com/share" class="twitter-share-button share-item" data-via="hasumedic" data-size="large" data-count="none">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      
+<aside class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'hasublog';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+      </article>
+
+    </section>
+</div>
+
+<div class="push"></div>
+  <footer>
+    <aside class="wrap">
+      <ol class="prev-posts">
+        <p class="list-title">Recent Posts</p>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/scala-collections" title="Working with scala collections">Working with scala collections </a></span>
+              <span class="date">Aug 16, 2015</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/start-a-tech-blog-using-jekyll-part-ii" title="Start a tech blog using Jekyll Part II">Start a tech blog using Jekyll Part II </a></span>
+              <span class="date">Jul 29, 2015</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/start-a-tech-blog-using-jekyll-part-i" title="Start a tech blog using Jekyll Part I">Start a tech blog using Jekyll Part I </a></span>
+              <span class="date">Jul 25, 2015</span>
+            </li>
+        
+      </ol>
+
+      <div class="social">
+        <ul>
+            <li>
+                <a id="mail" href="mailto:hasumedic@gmail.com">
+                    <span class="foot-link">
+                        <span class="icon-mail"></span> Contact Me
+                    </span>
+                </a>
+            </li>
+
+            
+            <li>
+                <a id="twit" href="https://twitter.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-twitter"></span> @hasumedic</span></a>
+            </li>
+            
+
+
+            
+            <li>
+                <a id="github" href="https://github.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-github"></span> Github</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    </aside>
+    <small>&copy; 2015 Alex Salguero. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://jekyll.gtat.me/about">Balzac</a> theme.</small>
+  </footer>
+
+
+    <script>
+        if (document.location.hostname.search("hasumedic.com") !== -1) {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-65046797-1', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
+
+
+  <!-- If they're out, get some from the cellar -->
+  <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+  <script src="/assets/js/retina.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="/assets/js/scripts.js"></script>
+
+
+  </body>
+</html>
+

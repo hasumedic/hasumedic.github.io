@@ -6,6 +6,10 @@
 
     
     <url>
+        <loc>/blog/scala-collections</loc>
+    </url>
+    
+    <url>
         <loc>/blog/start-a-tech-blog-using-jekyll-part-ii</loc>
     </url>
     
