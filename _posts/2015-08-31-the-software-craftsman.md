@@ -6,7 +6,7 @@ category: blog
 tags: [book-review, software-craftsmanship, craftsmanship]
 comments: false
 image:
-    feature: the-software-craftsman/the-software-craftsman.png
+    feature: the-software-craftsman/the-software-craftsman.jpg
 ---
 
 I've been intrigued for a while to find out what exactly this concept of Software Craftsmanship is.
