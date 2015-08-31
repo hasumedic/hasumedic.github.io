@@ -6,6 +6,10 @@
 
     
     <url>
+        <loc>/blog/the-software-craftsman</loc>
+    </url>
+    
+    <url>
         <loc>/blog/scala-collections</loc>
     </url>
     
