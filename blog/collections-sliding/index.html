@@ -1,0 +1,316 @@
+
+
+    <!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Sliding through collections</title>
+<meta name="description" content="A rather useful little function to slide through Scala collections with ease">
+<meta name="keywords" content="scala, collections, sliding">
+
+
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Sliding through collections">
+<meta property="og:description" content="A rather useful little function to slide through Scala collections with ease">
+<meta property="og:url" content="/blog/collections-sliding">
+<meta property="og:site_name" content="Alex Salguero">
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Alex Salguero Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Type -->
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic" rel='stylesheet' type='text/css' />
+<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/css/entypo.css" media="all">
+<link rel="stylesheet" href="/assets/css/highlight.css" media="all">
+
+<!-- In order to use Calendas Plus, you must first purchase it. Then, create a font-face package using FontSquirrel.
+<link rel='stylesheet' href='/assets/cal.css' media='all' />
+-->
+
+
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/i.css">
+
+<!-- Fresh Squeezed jQuery -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+
+<div id="bump">
+  <body class="">
+    <header class="site-header">
+      <div class="wrap">
+        <hgroup>
+          <h1><a href="/">Alex Salguero</a></h1>
+        </hgroup>
+        <a href="#nav" class="menu"><span class='icons'>☰</span></a>
+        <nav role="navigation">
+          <ul>
+            <li>
+              <a href="/" title="Alex Salguero">Home</a>
+            </li>
+            
+            
+            <li><a href="/about" >About</a></li>
+            
+            <li><a href="/posts" >Posts</a></li>
+            
+
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+<section class="article">
+
+
+  <div class="overlay"></div>
+  
+  <div class="featured-image" style="background-image: url(/images/collections-sliding/collections-sliding.jpg)"></div>
+  
+
+
+      <article class="wrap post">
+        <header class="post-header">
+          <hgroup>
+            <h1>Sliding through collections</h1>
+            <p class="date">Nov 22, 2015</p>
+            <p class="intro"></p>
+          </hgroup>
+        </header>
+
+        <p>The other day I found myself trying to solve one of those math puzzles which had to do with doing computations on subsets of a very large number to then obtain a final result. Something along the lines of:</p>
+
+<p>“Given the string representing the number 127361827391827309127381263, what would be the biggest product of its internal consecutive numbers grouped by 5?”</p>
+
+<p>So I jumped straight into implementing a function that, using an accumulator recursively, would come up with a list containing all the subset combinations:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">slices</span><span class="o">(</span><span class="n">size</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">digits</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Char</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+  
+  <span class="k">def</span> <span class="n">sliceAcc</span><span class="o">(</span><span class="n">size</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">digits</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">acc</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Char</span><span class="o">]])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Char</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">digits</span><span class="o">.</span><span class="n">length</span> <span class="o">&lt;</span> <span class="n">size</span><span class="o">)</span> <span class="n">acc</span>
+    <span class="k">else</span> <span class="n">sliceAcc</span><span class="o">(</span><span class="n">size</span><span class="o">,</span> <span class="n">digits</span><span class="o">.</span><span class="n">drop</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="n">acc</span> <span class="o">++</span> <span class="nc">List</span><span class="o">(</span><span class="n">digits</span><span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="n">size</span><span class="o">).</span><span class="n">toList</span><span class="o">))</span>
+  <span class="o">}</span>
+
+  <span class="n">sliceAcc</span><span class="o">(</span><span class="n">size</span><span class="o">,</span> <span class="n">digits</span><span class="o">,</span> <span class="nc">Nil</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">slices</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="s">&quot;1234567890&quot;</span><span class="o">)</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Char</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">0</span><span class="o">))</span></code></pre></div>
+
+<p>Although this works, it looks a bit messy. It’s not just the fact of using an accumulator, but also the reduction of the input is not clear enough.</p>
+
+<p>Luckily, later I found a way to do exactly this which was already built in in the Scala collections!</p>
+
+<h1 id="sliding">Sliding</h1>
+
+<p>The “sliding” function is defined by the Scala’s Iterator trait like so:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">sliding</span><span class="o">[</span><span class="kt">B</span> <span class="k">&gt;:</span> <span class="kt">A</span><span class="o">](</span><span class="n">size</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">step</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">1</span><span class="o">)</span><span class="k">:</span> <span class="kt">GroupedIterator</span><span class="o">[</span><span class="kt">B</span><span class="o">]</span></code></pre></div>
+
+<p>Its signature indicates that a GroupedIterator is returned. GroupIterator differs from Iterator (amongst other things) by defining a strategy for dealing with elements which do not evenly fit in grouping operations such as “sliding”. We’ll see an example in a bit.</p>
+
+<p>So by using “sliding”, the whole of my “slices” function could have been achieved with a simple one-liner:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="s">&quot;1234567890&quot;</span><span class="o">.</span><span class="n">toList</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
+<span class="n">res1</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Char</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">0</span><span class="o">))</span></code></pre></div>
+
+<p>The second parameter of “sliding” allows us to define a jump between where the previous partition was made before start grouping again.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="s">&quot;1234567890&quot;</span><span class="o">.</span><span class="n">toList</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
+<span class="n">res2</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Char</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">0</span><span class="o">))</span></code></pre></div>
+
+<p>Notice that in here we get 4 groups of 3 and a single group with 2 elements. Depending on the use case, this behaviour might not be desired. What we might need instead, are those values that form a complete group. Here’s where the strategy defined in the GroupedIterator comes into play. It provides a method <strong>withPartials()</strong> which accepts a boolean to indicate whether we want to discard partial results.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="s">&quot;1234567890&quot;</span><span class="o">.</span><span class="n">iterator</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="n">withPartial</span><span class="o">(</span><span class="kc">false</span><span class="o">).</span><span class="n">toList</span>
+<span class="n">res3</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Seq</span><span class="o">[</span><span class="kt">Char</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">9</span><span class="o">))</span></code></pre></div>
+
+<p>Finally, calling “sliding” with the same value in both parameters is equivalent to using the function “grouped”.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="s">&quot;1234567890&quot;</span><span class="o">.</span><span class="n">toList</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
+<span class="n">res4</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Char</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">0</span><span class="o">))</span>
+
+<span class="s">&quot;1234567890&quot;</span><span class="o">.</span><span class="n">toList</span><span class="o">.</span><span class="n">grouped</span><span class="o">(</span><span class="mi">2</span><span class="o">).</span><span class="n">toList</span>
+<span class="n">res5</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">List</span><span class="o">[</span><span class="kt">Char</span><span class="o">]]</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span> <span class="mi">8</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">9</span><span class="o">,</span> <span class="mi">0</span><span class="o">))</span></code></pre></div>
+
+<h1 id="use-cases">Use cases</h1>
+
+<p>I find this method very useful to help finding solutions to mathematical problems like the one described at the beginning of the post. </p>
+
+<p>Considering the problem again: “Given the string representing the number 127361827391827309127381263, what would be the biggest product of its internal consecutive numbers grouped by 5?”</p>
+
+<p>What we are really looking for is 127361<strong>82739</strong>1827309127381263, its product yielding a result of 3024.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="s">&quot;127361827391827309127381263&quot;</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">asDigit</span><span class="o">).</span><span class="n">sliding</span><span class="o">(</span><span class="mi">5</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">product</span><span class="o">).</span><span class="n">max</span>
+<span class="n">res6</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">3024</span></code></pre></div>
+
+<p>So we have just transformed the input into digits, created the groups of 5 with “sliding”, mapped over the groups applying the product of its numbers and finally picking its maximum value. Neat!</p>
+
+<p>But can we also use this function in something closer to a real world scenario? </p>
+
+<p>Well, lets imagine an overly-simplified example on a city-break quoting system. We want to allow our customers to find out what is the cheapest price to travel to a destination for a certain amount of days on any day for the following month.</p>
+
+<p>The system would have a service to obtain the best price for a destination based on a list of consecutive days:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">price</span><span class="o">(</span><span class="n">destination</span><span class="k">:</span> <span class="kt">Destination</span><span class="o">,</span> <span class="n">travelDates</span><span class="k">:</span> <span class="kt">Seq</span><span class="o">[</span><span class="kt">DateTime</span><span class="o">])</span><span class="k">:</span> <span class="kt">Money</span></code></pre></div>
+
+<p>The only thing we need, is call this service for all possible dates within the next month. And we can do that by using “sliding”:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">nextMonthDays</span><span class="k">:</span><span class="kt">Iterator</span><span class="o">[</span><span class="kt">DateTime</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Iterator</span><span class="o">.</span><span class="n">iterate</span><span class="o">(</span><span class="k">new</span> <span class="nc">DateTime</span><span class="o">())(</span><span class="k">_</span> <span class="n">plusDays</span> <span class="mi">1</span><span class="o">)</span> <span class="n">takeWhile</span> <span class="o">(</span><span class="k">_</span> <span class="n">isBefore</span> <span class="k">new</span> <span class="nc">DateTime</span><span class="o">().</span><span class="n">plusMonths</span><span class="o">(</span><span class="mi">1</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="n">findBestPriceForNextMonth</span><span class="o">(</span><span class="n">destination</span><span class="k">:</span> <span class="kt">Destination</span><span class="o">,</span> <span class="n">numberOfDays</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Money</span> <span class="o">=</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">possibleDates</span> <span class="k">=</span> <span class="n">nextMonthDays</span><span class="o">.</span><span class="n">sliding</span><span class="o">(</span><span class="n">numberOfDays</span><span class="o">)</span>
+  <span class="n">possibleDates</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">days</span> <span class="k">=&gt;</span> <span class="n">price</span><span class="o">(</span><span class="n">destination</span><span class="o">,</span> <span class="n">days</span><span class="o">)).</span><span class="n">min</span>
+<span class="o">}</span>
+
+<span class="n">findBestPriceForNextMonth</span><span class="o">(</span><span class="s">&quot;Barcelona&quot;</span><span class="o">,</span> <span class="mi">4</span><span class="o">)</span></code></pre></div>
+
+<p>In this particular example, we would find the cheapest price to go to Barcelona for 4 days during the next month.</p>
+
+<p>Header Image: <a href="https://www.flickr.com/photos/md88/11928135214/">Matteo Dunchi via Flickr</a></p>
+
+
+      
+<div class="tags">
+    <span>Tags:</span>
+    
+        <a href="/tag/scala">scala</a>
+        
+        -
+        
+    
+        <a href="/tag/collections">collections</a>
+        
+        -
+        
+    
+        <a href="/tag/sliding">sliding</a>
+        
+    
+</div>
+
+
+      <a href="https://twitter.com/share" class="twitter-share-button share-item" data-via="hasumedic" data-size="large" data-count="none">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      
+<aside class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'hasublog';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+      </article>
+
+    </section>
+</div>
+
+<div class="push"></div>
+  <footer>
+    <aside class="wrap">
+      <ol class="prev-posts">
+        <p class="list-title">Recent Posts</p>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/collections-sliding" title="Sliding through collections">Sliding through collections </a></span>
+              <span class="date">Nov 22, 2015</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/the-software-craftsman" title="Book review: "The Software Craftsman"">Book review: "The Software Craftsman" </a></span>
+              <span class="date">Aug 31, 2015</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/scala-collections" title="Working with scala collections">Working with scala collections </a></span>
+              <span class="date">Aug 16, 2015</span>
+            </li>
+        
+      </ol>
+
+      <div class="social">
+        <ul>
+            <li>
+                <a id="mail" href="mailto:hasumedic@gmail.com">
+                    <span class="foot-link">
+                        <span class="icon-mail"></span> Contact Me
+                    </span>
+                </a>
+            </li>
+
+            
+            <li>
+                <a id="twit" href="https://twitter.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-twitter"></span> @hasumedic</span></a>
+            </li>
+            
+
+
+            
+            <li>
+                <a id="github" href="https://github.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-github"></span> Github</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    </aside>
+    <small>&copy; 2015 Alex Salguero. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://jekyll.gtat.me/about">Balzac</a> theme.</small>
+  </footer>
+
+
+    <script>
+        if (document.location.hostname.search("hasumedic.com") !== -1) {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-65046797-1', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
+
+
+  <!-- If they're out, get some from the cellar -->
+  <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+  <script src="/assets/js/retina.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="/assets/js/scripts.js"></script>
+
+
+  </body>
+</html>
+
