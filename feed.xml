@@ -5,13 +5,89 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="" />
-<updated>2015-11-22T22:58:48+00:00</updated>
+<updated>2015-12-16T22:46:17+00:00</updated>
 <id>/</id>
 <author>
   <name>Alex Salguero</name>
   <uri>/</uri>
   <email>hasumedic@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Scala eXchange 2015]]></title>
+  <link rel="alternate" type="text/html" href="/blog/scala-exchange-2015" />
+  <id>/blog/scala-exchange-2015</id>
+  <published>2015-12-16T00:00:00+00:00</published>
+  <updated>2015-12-16T00:00:00+00:00</updated>
+  <author>
+    <name>Alex Salguero</name>
+    <uri></uri>
+    <email>hasumedic@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;So last week I attended my first Scala conference, that being the Scala eXchange 2015 in London.&lt;/p&gt;
+
+&lt;p&gt;For me personally, it was great to have that feeling again of leaving a conference with so many notes and things to follow up on. &lt;/p&gt;
+
+&lt;h1 id=&quot;talks&quot;&gt;Talks&lt;/h1&gt;
+
+&lt;p&gt;Scala is a language that can be used for a wide variety of things. That’s why the conference could have four different tracks with so little topic overlap.&lt;/p&gt;
+
+&lt;p&gt;At the beginning of each day, there was a whiteboard with a sketch of the different tracks so people could tick which talks they were planning to attend. This way the organizers could assign the bigger rooms to the more popular talks.&lt;/p&gt;
+
+&lt;p&gt;This worked quite well and I pretty much stayed the whole conference in the main room, attending the most popular talks. Probably because there were many noobs like myself attending ;)&lt;/p&gt;
+
+&lt;p&gt;The keynote from &lt;a href=&quot;https://www.twitter.com/jessitron&quot;&gt;Jessica Kerr&lt;/a&gt; was most inspiring. And she highlighted for me one of the biggest problems scala has, which is the huge gaps that one finds along the way of mastering the language. Whilst it’s rather simple start fooling around with Scala, there are moments where the knowledge gap is just too big from one step to the next one, and there are not near as enough resources as other popular languages have. I have to say that &lt;a href=&quot;https://www.typesafe.com/community/core-tools/activator-and-sbt&quot;&gt;activator&lt;/a&gt; has been a great step forward on the right direction for helping newcomers to get familiar with the different parts of the scala ecosystem.&lt;/p&gt;
+
+&lt;p&gt;From the rest of the talks from day one, I particularly enjoyed &lt;a href=&quot;https://skillsmatter.com/skillscasts/6859-exploiting-dependent-types-for-safer-faster-code&quot;&gt;Jon Pretty’s “Exploiting dependent types for a safer, faster code”&lt;/a&gt;. Although it was quite an advanced topic, it was presented in such a way that it was easy to understand and reason about. We even learned some Klingon!&lt;/p&gt;
+
+&lt;p&gt;Also very practical talks from &lt;a href=&quot;https://www.twitter.com/renatocaval&quot;&gt;Renato Cavalcanti&lt;/a&gt; and 
+&lt;a href=&quot;https://www.twitter.com/noelmarkham&quot;&gt;Noel Markham&lt;/a&gt; on CQRS and pure functional concepts. Lots of food for thoughts, follow up investigation and practice! 
+I also attended &lt;a href=&quot;https://www.twitter.com/clementd&quot;&gt;Clément Delafargue&lt;/a&gt;’s talk on Functional patterns for FP beginners. It was a good talk, covering lots on concepts. Maybe a bit too many for the amount of time given. I think that the talk has potential but needs to have either more time to present the concepts in a less rushed way or maybe split the talk into two so it fits more nicely in 45min slots.&lt;/p&gt;
+
+&lt;p&gt;At the end of the first day, there was a mix of 15-minute lightning talks. That’s a cool concept, allowing less renowned speakers to show cool things in a more informal format.&lt;/p&gt;
+
+&lt;p&gt;The second day was not as exciting for me, maybe because I did not choose the right topics on the talks.
+I attended &lt;a href=&quot;https://twitter.com/mattroberts297&quot;&gt;Matt Roberts&lt;/a&gt;’s talk on scala in AWS, which had a lot of AWS and not that much scala. On the second talk slot I went to &lt;a href=&quot;https://twitter.com/alxarchambault&quot;&gt;Alexandre Archambault&lt;/a&gt;’s type class derivation with shapeless, which was a bit dense and probably a tad too advanced for my current level.&lt;/p&gt;
+
+&lt;p&gt;Luckily, that’s not a big deal since SkillsMatter always does an excellent job on uploading all their talks very quickly. So I’m very much looking forward to the videos of the rest of the talks that I could not attend!&lt;/p&gt;
+
+&lt;p&gt;If you want a much more detailed explanation on each of the talks you should read &lt;a href=&quot;https://www.twitter.com/pvillega&quot;&gt;Pere Villega&lt;/a&gt;’s posts (&lt;a href=&quot;http://perevillega.com/scala-exchange-2015-day-one/&quot;&gt;day1&lt;/a&gt; and &lt;a href=&quot;http://perevillega.com/scala-exchange-2015-day-two/&quot;&gt;day2&lt;/a&gt;). We pretty much attended the same talks together, and he did a great job writing the summaries almost in real time!&lt;/p&gt;
+
+&lt;h2 id=&quot;workshops&quot;&gt;Workshops&lt;/h2&gt;
+
+&lt;p&gt;Another cool thing that happened at the event were a series of workshops that were organised at the end of the second day. They ranged from introductions to property based testing to &lt;a href=&quot;https://github.com/fommil/scalax-shapeless-mortals&quot;&gt;crazy generalization using shapeless&lt;/a&gt;. I made the mistake of attending this last one, which help tremendously on understanding many concepts on generic programming, but highlighted that there’s still a good amount of things I need to understand before I can jump on writing application code using these concepts.&lt;/p&gt;
+
+&lt;p&gt;I think they were an excellent idea, and I heard that all presenters were pretty good. The majority of them consisted in an introductory presentation giving some background theory to what was about to be explored on a practical exercise.&lt;/p&gt;
+
+&lt;p&gt;They were supposed to go for a couple of hours. I’d probably add another hour next time, so there’s enough time to digest the theory and work on the problems for a reasonable amount of time.&lt;/p&gt;
+
+&lt;h1 id=&quot;organization--venue&quot;&gt;Organization &amp;amp; venue&lt;/h1&gt;
+
+&lt;p&gt;In terms of organization, I think the event was very well organised. Everything was in place at the right time. Organizers were extremely friendly and helpful, and there were plenty of them around.&lt;/p&gt;
+
+&lt;p&gt;Every talk I attended started right on time and refreshments and snacks were always ready in between the talks. Directions to the rooms indicating where every talk was going to take place were all over the place.&lt;/p&gt;
+
+&lt;p&gt;The venue (Business Design Centre) was big enough for 750-odd people without feeling crowded at any point (well, maybe a little bit on registration and cloakroom). 
+The main conference room could do with lateral monitors along the corridors so people at the back could also read the text on live coding sessions or undersized fonts in some presentation slides.&lt;/p&gt;
+
+&lt;p&gt;In terms of the sponsors, there were a lot of them, and with a variety of goodies for all the attendants. Some of them offered sweets, others clever t-shirts, etc. But for me, the winner of them all was the stall from Cake Solutions, which included a magnificent coffee machine with delicious coffee to enjoy throughout the conference. Thanks a lot!!&lt;/p&gt;
+
+&lt;h2 id=&quot;party&quot;&gt;Party&lt;/h2&gt;
+
+&lt;p&gt;One of the coolest parts of the event was the after-conference party held at SkillsMatter’s CodeNode. A few classic London buses picked the attendants up and brought them to the CodeNode. Once there, we could enjoy a few drinks, table tennis, table football, pizza, etc
+It’s incredible at the speed at which pizza disappears amongst developers!&lt;/p&gt;
+
+&lt;p&gt;This was probably the best place for follow up conversations about the first day at the conference, on personal projects/goals and meeting new people in a more relaxed environment. &lt;/p&gt;
+
+&lt;h1 id=&quot;overall-experience&quot;&gt;Overall experience&lt;/h1&gt;
+
+&lt;p&gt;All in all, I think it was a great event, and I’m pretty much looking forward to attend more events organised by the scala community. I feel like there’s so much to learn and these events really help to bump both motivation and determination.&lt;/p&gt;
+
+&lt;p&gt;Would I attend again? Of course I would. Actually, I already got my ticket for &lt;a href=&quot;https://skillsmatter.com/conferences/7432-scala-exchange-2016&quot;&gt;next year’s scala eXchange&lt;/a&gt;, which are already on sale on a reduced blind bird price until the end of this week.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/blog/scala-exchange-2015&quot;&gt;Scala eXchange 2015&lt;/a&gt; was originally published by Alex Salguero at &lt;a href=&quot;&quot;&gt;Alex Salguero&lt;/a&gt; on December 16, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
