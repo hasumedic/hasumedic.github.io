@@ -1,0 +1,402 @@
+
+
+    <!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Scala classes and objects</title>
+<meta name="description" content="Main properties and uses for classes and objects in Scala">
+<meta name="keywords" content="scala, classes, objects">
+
+
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Scala classes and objects">
+<meta property="og:description" content="Main properties and uses for classes and objects in Scala">
+<meta property="og:url" content="/blog/classes-and-objects">
+<meta property="og:site_name" content="Alex Salguero">
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Alex Salguero Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Type -->
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic" rel='stylesheet' type='text/css' />
+<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/css/entypo.css" media="all">
+<link rel="stylesheet" href="/assets/css/highlight.css" media="all">
+
+<!-- In order to use Calendas Plus, you must first purchase it. Then, create a font-face package using FontSquirrel.
+<link rel='stylesheet' href='/assets/cal.css' media='all' />
+-->
+
+
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/i.css">
+
+<!-- Fresh Squeezed jQuery -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+
+<div id="bump">
+  <body class="">
+    <header class="site-header">
+      <div class="wrap">
+        <hgroup>
+          <h1><a href="/">Alex Salguero</a></h1>
+        </hgroup>
+        <a href="#nav" class="menu"><span class='icons'>☰</span></a>
+        <nav role="navigation">
+          <ul>
+            <li>
+              <a href="/" title="Alex Salguero">Home</a>
+            </li>
+            
+            
+            <li><a href="/about" >About</a></li>
+            
+            <li><a href="/posts" >Posts</a></li>
+            
+
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+<section class="article">
+
+
+  <div class="overlay"></div>
+  
+  <div class="featured-image" style="background-image: url(/images/classes-and-objects/IMG_3001.jpg)"></div>
+  
+
+
+      <article class="wrap post">
+        <header class="post-header">
+          <hgroup>
+            <h1>Scala classes and objects</h1>
+            <p class="date">Feb 23, 2016</p>
+            <p class="intro"></p>
+          </hgroup>
+        </header>
+
+        <p>When learning Scala, you often find yourself reading stuff from lots of sources with tons of information about different topics. Hence, it is not difficult to end up going down a rabbit-hole, starting reading about some cool feature or concept and end up 3 hours later trying to understand some obscure type level programming technique/pattern which is not what your original plans were.</p>
+
+<p>So I wanted to go a little bit back to Scala basics in this post, targeting people who are just starting and wants to get familiar with it.</p>
+
+<h1 id="classes">Classes</h1>
+
+<p>“But I heard that Scala was a functional language, shouldn’t everything be a function?”</p>
+
+<p>Well, you’ve heard well. Scala is a functional language, but it’s actually more of a hybrid between the OOP and functional worlds.</p>
+
+<p>In order to better organize concepts and units of logic, Scala supports classes. The idea behind them is not that different to its counterparts in Java or C++. Here is an overly simplified example:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">val</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">private</span> <span class="k">var</span> <span class="n">level</span> <span class="k">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="n">currentLevel</span><span class="o">()</span> <span class="k">=</span> <span class="n">level</span>
+    
+    <span class="k">def</span> <span class="n">goUp</span><span class="o">(</span><span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="n">level</span> <span class="o">+=</span> <span class="n">levels</span>
+    
+    <span class="k">def</span> <span class="n">goDown</span><span class="o">(</span><span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=</span> <span class="n">level</span> <span class="o">-=</span> <span class="n">levels</span>
+
+    <span class="k">def</span> <span class="n">goesHigherThan</span><span class="o">(</span><span class="n">other</span><span class="k">:</span> <span class="kt">Lift</span><span class="o">)</span> <span class="k">=</span> <span class="k">this</span><span class="o">.</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">levels</span>
+<span class="o">}</span></code></pre></div>
+
+<p>We are using the <em>class</em> keyword to declare a Lift class. Scala makes it public by default, so there’s no need for the redundant “public” Java modifier. To construct objects of this class, the same good old <em>new</em> keyword is used:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">lift</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Lift</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span></code></pre></div>
+
+<p>In Scala, class definitions are very concise and accept parameters in its very definition, acting as its primary constructor. These parameters can generate lots of boilerplate code for us. If we specify them with the <em>val</em> keyword, a getter method with the same name as the field will be available for us. If instead of val we use <em>var</em>, both a getter and a setter will be made available to us:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">val</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">lift</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Lift</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<span class="n">lift</span><span class="o">.</span><span class="n">levels</span> <span class="c1">// Int = 10</span>
+<span class="n">lift</span><span class="o">.</span><span class="n">levels</span> <span class="k">=</span> <span class="mi">50</span> <span class="c1">// error: reassignment to val</span>
+
+<span class="n">vs</span>
+
+<span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">var</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">lift</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Lift</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<span class="n">lift</span><span class="o">.</span><span class="n">levels</span> <span class="c1">// Int = 10</span>
+<span class="n">lift</span><span class="o">.</span><span class="n">levels</span> <span class="k">=</span> <span class="mi">50</span>
+<span class="n">lift</span><span class="o">.</span><span class="n">levels</span> <span class="c1">// Int = 50</span></code></pre></div>
+
+<p>Like in Java, private fields from other classes are accessible from the current class as long as their types are the same.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">goesHigherThan</span><span class="o">(</span><span class="n">other</span><span class="k">:</span> <span class="kt">Lift</span><span class="o">)</span> <span class="k">=</span> <span class="k">this</span><span class="o">.</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">levels</span></code></pre></div>
+
+<p>We already mentioned the primary constructor, but what if we want to have more ways to instantiate the class? Scala allows us to define auxiliary constructors by using the <em>this</em> keyword:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">val</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">private</span> <span class="k">var</span> <span class="n">hasUndergroundLevels</span> <span class="k">=</span> <span class="kc">false</span>
+    
+    <span class="k">def</span> <span class="k">this</span><span class="o">(</span><span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">hasUndergroundLevels</span><span class="k">:</span> <span class="kt">Boolean</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">(</span><span class="n">levels</span><span class="o">)</span>
+        <span class="k">this</span><span class="o">.</span><span class="n">hasUndergroundLevels</span> <span class="k">=</span> <span class="n">hasUndergroundLevels</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//now the class can be instantiated using an auxiliary constructor</span>
+<span class="k">val</span> <span class="n">lift</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Lift</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span></code></pre></div>
+
+<p>“This is just like Java!”</p>
+
+<p>In reality, this kind of constructors are not used that often. The main reason is because it’s possible to define default values to constructor parameters. Furthermore, it’s also possible to instantiate classes by passing its parameters by name:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">val</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="k">val</span> <span class="n">hasUndergroundLevels</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">defaultLift</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Lift</span>
+<span class="n">defaultLift</span><span class="o">.</span><span class="n">levels</span> <span class="c1">// Int = 10</span>
+<span class="n">defaultLeft</span><span class="o">.</span><span class="n">hasUndergroundLevels</span> <span class="c1">// Boolean = false</span>
+
+<span class="k">val</span> <span class="n">customLift</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Lift</span><span class="o">(</span><span class="n">hasUndergroundLevels</span> <span class="k">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">levels</span> <span class="k">=</span> <span class="mi">3</span><span class="o">)</span>
+<span class="n">defaultLift</span><span class="o">.</span><span class="n">levels</span> <span class="c1">// Int = 3</span>
+<span class="n">defaultLeft</span><span class="o">.</span><span class="n">hasUndergroundLevels</span> <span class="c1">// Boolean = true</span></code></pre></div>
+
+<h1 id="objects">Objects</h1>
+
+<p>“Aha! I know this one. Objects are instances of those classes that you mentioned before!”</p>
+
+<p>Well, that’s indeed what an object is, but Scala has a reserved keyword and logic behind a construct that is also called <em>Object</em>. A Scala object defines a single instance of a class that encapsulates logic.</p>
+
+<p>“Are you saying that is a singleton? But I read somewhere that singletons are a terrible thing that can come and eat you while you sleep!”</p>
+
+<p>Truth is, that singletons are as bad as the usage that you make of them. If you’re aware that a Scala object is a <a href="https://en.wikipedia.org/wiki/Singleton_pattern">singleton</a> and use it as such, there should be nothing wrong with it. Going a bit further, Scala objects are a very helpful construct to define utility methods that do not require state to compute. A rather silly example, could be a CaseConverter object which operates on Strings:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">CaseConverter</span> <span class="o">{</span>
+
+  <span class="k">def</span> <span class="n">toPascalCase</span><span class="o">(</span><span class="n">input</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">capitalize</span><span class="o">).</span><span class="n">mkString</span>
+  
+  <span class="k">def</span> <span class="n">toSnakeCase</span><span class="o">(</span><span class="n">input</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">input</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">).</span><span class="n">map</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">toLowerCase</span><span class="o">).</span><span class="n">mkString</span><span class="o">(</span><span class="s">&quot;_&quot;</span><span class="o">)</span>
+  
+  <span class="k">def</span> <span class="n">toCamelCase</span><span class="o">(</span><span class="n">input</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="o">{</span>
+  
+    <span class="k">def</span> <span class="n">lowerFirstChar</span><span class="o">(</span><span class="n">string</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="o">{</span>
+      <span class="n">string</span><span class="o">.</span><span class="n">head</span><span class="o">.</span><span class="n">toLower</span><span class="o">.</span><span class="n">toString</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">tail</span>
+    <span class="o">}</span>
+    
+    <span class="n">lowerFirstChar</span><span class="o">(</span><span class="n">toPascalCase</span><span class="o">(</span><span class="n">input</span><span class="o">))</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>This object can then be used without instantiating, pretty much like a static method:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="nc">CaseConverter</span><span class="o">.</span><span class="n">toPascalCase</span><span class="o">(</span><span class="s">&quot;my shiny variable&quot;</span><span class="o">)</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nc">MyShinyVariable</span>
+
+<span class="nc">CaseConverter</span><span class="o">.</span><span class="n">toSnakeCase</span><span class="o">(</span><span class="s">&quot;my shiny variable&quot;</span><span class="o">)</span>
+<span class="n">res1</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">my_shiny_variable</span>
+
+<span class="nc">CaseConverter</span><span class="o">.</span><span class="n">toCamelCase</span><span class="o">(</span><span class="s">&quot;my shiny variable&quot;</span><span class="o">)</span>
+<span class="n">res2</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">myShinyVariable</span></code></pre></div>
+
+<p>Objects are very much like a Scala class but they do not receive constructor parameters. A typical use case for objects, is to provide static and instance methods to a class. This is known as acting as a <em>Companion Object</em>. For this to occur, both class and object should have the very same name and should live in the same file. Instance methods are achieved by implementing the <em>apply</em> method:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="k">val</span> <span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="k">val</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+
+<span class="k">object</span> <span class="nc">Person</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Person</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">,</span> <span class="n">age</span><span class="o">)</span>
+  <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Person</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+<p>At a first glance, this might seem like an overkill and completely unnecessary. In reality, having objects acting as factories for creating instances of their accompanied classes can enhance Scala code readability a lot. </p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">unknownPerson</span> <span class="k">=</span> <span class="nc">Person</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">knownPerson</span> <span class="k">=</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Alan&quot;</span><span class="o">,</span> <span class="mi">25</span><span class="o">)</span></code></pre></div>
+
+<p>“Wait! Where did the <em>new</em> keyword go?”</p>
+
+<p>Companion objects have the capability of removing the need for the <em>new</em> keyword when instantiating the accompanied classes. This is pretty handy, specially when dealing with nested structures such as lists of lists:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">list</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">List</span><span class="o">(</span><span class="k">new</span> <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="k">new</span> <span class="nc">List</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="mi">5</span><span class="o">),</span> <span class="k">new</span> <span class="nc">List</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span><span class="mi">4</span><span class="o">))</span>
+
+<span class="n">vs</span>
+
+<span class="k">val</span> <span class="n">list</span> <span class="k">=</span> <span class="nc">List</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="mi">5</span><span class="o">),</span> <span class="nc">List</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span><span class="mi">4</span><span class="o">))</span></code></pre></div>
+
+<p>A final common use case for objects is to define a set of constants or enumerations. The easiest way to define them is by extending scala Enumeration:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">CardinalPoint</span> <span class="k">extends</span> <span class="nc">Enumeration</span> <span class="o">{</span>
+
+  <span class="k">type</span> <span class="kt">CardinalPoint</span> <span class="o">=</span> <span class="nc">Value</span>
+  
+  <span class="k">val</span> <span class="nc">North</span><span class="o">,</span> <span class="nc">South</span><span class="o">,</span> <span class="nc">West</span><span class="o">,</span> <span class="nc">East</span> <span class="k">=</span> <span class="nc">Value</span>
+<span class="o">}</span></code></pre></div>
+
+<p>The type CardinalPoints is not actually necessary, but it’s a good thing to add if type enforcing is needed in a function:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">move</span><span class="o">(</span><span class="n">towards</span><span class="k">:</span> <span class="kt">CardinalPoint</span><span class="o">)</span><span class="k">:</span> <span class="kt">Position</span> <span class="o">=</span> <span class="o">???</span>
+
+<span class="c1">// This function can be called like so:</span>
+<span class="n">move</span><span class="o">(</span><span class="nc">CardinalPoint</span><span class="o">.</span><span class="nc">North</span><span class="o">)</span></code></pre></div>
+
+<p>It’s also possible to give custom values to the elements of an enumeration. This way, the internal representation can be the one used by the algorithm but the code can read much better having meaningful names:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">CardinalPoint</span> <span class="k">extends</span> <span class="nc">Enumeration</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="nc">North</span> <span class="k">=</span> <span class="s">&quot;N&quot;</span>
+  <span class="k">val</span> <span class="nc">South</span> <span class="k">=</span> <span class="s">&quot;S&quot;</span>
+  <span class="k">val</span> <span class="nc">West</span> <span class="k">=</span> <span class="s">&quot;W&quot;</span>
+  <span class="k">val</span> <span class="nc">East</span> <span class="k">=</span> <span class="s">&quot;E&quot;</span>
+<span class="o">}</span>
+
+<span class="o">...</span>
+
+<span class="k">val</span> <span class="n">point</span> <span class="k">=</span> <span class="s">&quot;N&quot;</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">point</span> <span class="o">==</span> <span class="nc">CardinalPoint</span><span class="o">.</span><span class="nc">North</span><span class="o">)</span> <span class="s">&quot;I&#39;m heading North!&quot;</span>
+<span class="k">else</span> <span class="s">&quot;I&#39;m lost :(&quot;</span></code></pre></div>
+
+<h1 id="wrapping-up">Wrapping up</h1>
+
+<p>So hopefully this overview of classes and objects helps someone that is starting with Scala. There are a few more things that I could have mentioned about both classes and objects, but this overview was meant to cover just the basics and the most common use cases.</p>
+
+<p>In the near future I’d like to continue this post by discussing <em>case classes</em>, which are one of the corner stones of the Scala language and are very much related to both classes and objects.</p>
+
+
+      
+<div class="tags">
+    <span>Tags:</span>
+    
+        <a href="/tag/scala">scala</a>
+        
+        -
+        
+    
+        <a href="/tag/classes">classes</a>
+        
+        -
+        
+    
+        <a href="/tag/objects">objects</a>
+        
+    
+</div>
+
+
+      <a href="https://twitter.com/share" class="twitter-share-button share-item" data-via="hasumedic" data-size="large" data-count="none">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      
+<aside class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'hasublog';
+
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</aside>
+
+
+      </article>
+
+    </section>
+</div>
+
+<div class="push"></div>
+  <footer>
+    <aside class="wrap">
+      <ol class="prev-posts">
+        <p class="list-title">Recent Posts</p>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/classes-and-objects" title="Scala classes and objects">Scala classes and objects </a></span>
+              <span class="date">Feb 23, 2016</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/scala-exchange-2015" title="Scala eXchange 2015">Scala eXchange 2015 </a></span>
+              <span class="date">Dec 16, 2015</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/collections-sliding" title="Sliding through collections">Sliding through collections </a></span>
+              <span class="date">Nov 22, 2015</span>
+            </li>
+        
+      </ol>
+
+      <div class="social">
+        <ul>
+            <li>
+                <a id="mail" href="mailto:hasumedic@gmail.com">
+                    <span class="foot-link">
+                        <span class="icon-mail"></span> Contact Me
+                    </span>
+                </a>
+            </li>
+
+            
+            <li>
+                <a id="twit" href="https://twitter.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-twitter"></span> @hasumedic</span></a>
+            </li>
+            
+
+
+            
+            <li>
+                <a id="github" href="https://github.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-github"></span> Github</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    </aside>
+    <small>&copy; 2016 Alex Salguero. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://jekyll.gtat.me/about">Balzac</a> theme.</small>
+  </footer>
+
+
+    <script>
+        if (document.location.hostname.search("hasumedic.com") !== -1) {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-65046797-1', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
+
+
+  <!-- If they're out, get some from the cellar -->
+  <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+  <script src="/assets/js/retina.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="/assets/js/scripts.js"></script>
+
+
+  </body>
+</html>
+
