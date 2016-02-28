@@ -19,7 +19,7 @@ So I wanted to go a little bit back to Scala basics in this post, targeting peop
 
 Well, you've heard well. Scala is a functional language, but it's actually more of a hybrid between the OOP and functional worlds.
 
-In order to better organize concepts and units of logic, Scala supports classes. The idea behind them is not that different to its counterparts in Java or C++. Here is an overly simplified example:
+In order to better organize concepts and units of logic, Scala supports classes. The idea behind them is not that different to their counterparts in Java or C++. Here is an overly simplified example:
 
 {% highlight scala %}
 class Lift(val levels: Int) {
@@ -41,7 +41,7 @@ We are using the *class* keyword to declare a Lift class. Scala makes it public 
 val lift = new Lift(10)
 {% endhighlight %}
 
-In Scala, class definitions are very concise and accept parameters in its very definition, acting as its primary constructor. These parameters can generate lots of boilerplate code for us. If we specify them with the *val* keyword, a getter method with the same name as the field will be available for us. If instead of val we use *var*, both a getter and a setter will be made available to us:
+In Scala, class definitions are very concise and accept parameters in their very definition, acting as their primary constructor. These parameters can generate lots of boilerplate code for us. If we specify them with the *val* keyword, a getter method with the same name as the field will be available for us. If instead of val we use *var*, both a getter and a setter will be made available to us:
  
 {% highlight scala %}
 class Lift(val levels: Int)
@@ -66,7 +66,7 @@ Like in Java, private fields from other classes are accessible from the current 
     def goesHigherThan(other: Lift) = this.levels > other.levels
 {% endhighlight %}
 
-We already mentioned the primary constructor, but what if we want to have more ways to instantiate the class? Scala allows us to define auxiliary constructors by using the *this* keyword:
+We already mentioned the primary constructor, but what if we want to have more ways to instantiate the class? Scala allows us to define auxiliary constructors by using *this* keyword:
 
 {% highlight scala %}
 class Lift(val levels: Int) {
@@ -85,7 +85,7 @@ val lift = new Lift(10, true)
 
 "This is just like Java!"
 
-In reality, this kind of constructors are not used that often. The main reason is because it's possible to define default values to constructor parameters. Furthermore, it's also possible to instantiate classes by passing its parameters by name:
+In reality, this kind of constructors are not used that often. The main reason is because it's possible to define default values to constructor parameters. Furthermore, it's also possible to instantiate classes by passing their parameters by name:
 
 
 {% highlight scala %}
@@ -152,7 +152,7 @@ object Person {
 }
 {% endhighlight %}
 
-At a first glance, this might seem like an overkill and completely unnecessary. In reality, having objects acting as factories for creating instances of their accompanied classes can enhance Scala code readability a lot. 
+At a first glance, this might seem like an overkill and completely unnecessary. But actually, having objects acting as factories for creating instances of their accompanied classes can enhance Scala code readability a lot. 
 
 {% highlight scala %}
 val unknownPerson = Person(20)
@@ -182,7 +182,7 @@ object CardinalPoint extends Enumeration {
 }
 {% endhighlight %}
 
-The type CardinalPoints is not actually necessary, but it's a good thing to add if type enforcing is needed in a function:
+The type CardinalPoint is not actually necessary, but it's a good thing to add if type enforcing is needed in a function:
  
 {% highlight scala %}
 def move(towards: CardinalPoint): Position = ???
