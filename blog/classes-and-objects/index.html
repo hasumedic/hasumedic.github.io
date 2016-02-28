@@ -105,7 +105,7 @@
 
 <p>Well, you’ve heard well. Scala is a functional language, but it’s actually more of a hybrid between the OOP and functional worlds.</p>
 
-<p>In order to better organize concepts and units of logic, Scala supports classes. The idea behind them is not that different to its counterparts in Java or C++. Here is an overly simplified example:</p>
+<p>In order to better organize concepts and units of logic, Scala supports classes. The idea behind them is not that different to their counterparts in Java or C++. Here is an overly simplified example:</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">val</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">private</span> <span class="k">var</span> <span class="n">level</span> <span class="k">=</span> <span class="mi">0</span>
@@ -123,7 +123,7 @@
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">lift</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Lift</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span></code></pre></div>
 
-<p>In Scala, class definitions are very concise and accept parameters in its very definition, acting as its primary constructor. These parameters can generate lots of boilerplate code for us. If we specify them with the <em>val</em> keyword, a getter method with the same name as the field will be available for us. If instead of val we use <em>var</em>, both a getter and a setter will be made available to us:</p>
+<p>In Scala, class definitions are very concise and accept parameters in their very definition, acting as their primary constructor. These parameters can generate lots of boilerplate code for us. If we specify them with the <em>val</em> keyword, a getter method with the same name as the field will be available for us. If instead of val we use <em>var</em>, both a getter and a setter will be made available to us:</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">val</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
 
@@ -144,7 +144,7 @@
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">goesHigherThan</span><span class="o">(</span><span class="n">other</span><span class="k">:</span> <span class="kt">Lift</span><span class="o">)</span> <span class="k">=</span> <span class="k">this</span><span class="o">.</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="n">other</span><span class="o">.</span><span class="n">levels</span></code></pre></div>
 
-<p>We already mentioned the primary constructor, but what if we want to have more ways to instantiate the class? Scala allows us to define auxiliary constructors by using the <em>this</em> keyword:</p>
+<p>We already mentioned the primary constructor, but what if we want to have more ways to instantiate the class? Scala allows us to define auxiliary constructors by using <em>this</em> keyword:</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">val</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="o">{</span>
 
@@ -161,7 +161,7 @@
 
 <p>“This is just like Java!”</p>
 
-<p>In reality, this kind of constructors are not used that often. The main reason is because it’s possible to define default values to constructor parameters. Furthermore, it’s also possible to instantiate classes by passing its parameters by name:</p>
+<p>In reality, this kind of constructors are not used that often. The main reason is because it’s possible to define default values to constructor parameters. Furthermore, it’s also possible to instantiate classes by passing their parameters by name:</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">class</span> <span class="nc">Lift</span><span class="o">(</span><span class="k">val</span> <span class="n">levels</span><span class="k">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">10</span><span class="o">,</span> <span class="k">val</span> <span class="n">hasUndergroundLevels</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
 
@@ -219,7 +219,7 @@
   <span class="k">def</span> <span class="n">apply</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Person</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">)</span>
 <span class="o">}</span></code></pre></div>
 
-<p>At a first glance, this might seem like an overkill and completely unnecessary. In reality, having objects acting as factories for creating instances of their accompanied classes can enhance Scala code readability a lot. </p>
+<p>At a first glance, this might seem like an overkill and completely unnecessary. But actually, having objects acting as factories for creating instances of their accompanied classes can enhance Scala code readability a lot. </p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">unknownPerson</span> <span class="k">=</span> <span class="nc">Person</span><span class="o">(</span><span class="mi">20</span><span class="o">)</span>
 <span class="k">val</span> <span class="n">knownPerson</span> <span class="k">=</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Alan&quot;</span><span class="o">,</span> <span class="mi">25</span><span class="o">)</span></code></pre></div>
@@ -243,7 +243,7 @@
   <span class="k">val</span> <span class="nc">North</span><span class="o">,</span> <span class="nc">South</span><span class="o">,</span> <span class="nc">West</span><span class="o">,</span> <span class="nc">East</span> <span class="k">=</span> <span class="nc">Value</span>
 <span class="o">}</span></code></pre></div>
 
-<p>The type CardinalPoints is not actually necessary, but it’s a good thing to add if type enforcing is needed in a function:</p>
+<p>The type CardinalPoint is not actually necessary, but it’s a good thing to add if type enforcing is needed in a function:</p>
 
 <div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">move</span><span class="o">(</span><span class="n">towards</span><span class="k">:</span> <span class="kt">CardinalPoint</span><span class="o">)</span><span class="k">:</span> <span class="kt">Position</span> <span class="o">=</span> <span class="o">???</span>
 
