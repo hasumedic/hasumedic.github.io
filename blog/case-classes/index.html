@@ -1,0 +1,358 @@
+
+
+    <!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Scala case classes</title>
+<meta name="description" content="Overview on what a case class is and what advantages introduces when programming in Scala">
+<meta name="keywords" content="scala, case-class">
+
+
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Scala case classes">
+<meta property="og:description" content="Overview on what a case class is and what advantages introduces when programming in Scala">
+<meta property="og:url" content="/blog/case-classes">
+<meta property="og:site_name" content="Alex Salguero">
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Alex Salguero Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Type -->
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700,700italic" rel='stylesheet' type='text/css' />
+<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/css/entypo.css" media="all">
+<link rel="stylesheet" href="/assets/css/highlight.css" media="all">
+
+<!-- In order to use Calendas Plus, you must first purchase it. Then, create a font-face package using FontSquirrel.
+<link rel='stylesheet' href='/assets/cal.css' media='all' />
+-->
+
+
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/i.css">
+
+<!-- Fresh Squeezed jQuery -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+
+<div id="bump">
+  <body class="">
+    <header class="site-header">
+      <div class="wrap">
+        <hgroup>
+          <h1><a href="/">Alex Salguero</a></h1>
+        </hgroup>
+        <a href="#nav" class="menu"><span class='icons'>☰</span></a>
+        <nav role="navigation">
+          <ul>
+            <li>
+              <a href="/" title="Alex Salguero">Home</a>
+            </li>
+            
+            
+            <li><a href="/about" >About</a></li>
+            
+            <li><a href="/posts" >Posts</a></li>
+            
+
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+<section class="article">
+
+
+  <div class="overlay"></div>
+  
+  <div class="featured-image" style="background-image: url(/images/case-classes/case-classes.jpg)"></div>
+  
+
+
+      <article class="wrap post">
+        <header class="post-header">
+          <hgroup>
+            <h1>Scala case classes</h1>
+            <p class="date">Jun 21, 2016</p>
+            <p class="intro"></p>
+          </hgroup>
+        </header>
+
+        <p>In my <a href="/blog/classes-and-objects">previous post</a> I made an overview to the relationship between classes and objects in Scala. In this post I’d like to review a language construct called <code>case class</code> which is basically a hyper dose of sugar on top of the other two.  </p>
+
+<h1 id="whats-a-case-class">What’s a case class?</h1>
+
+<p>A case class is just a way to define a class which makes the compiler infer and create a bunch of information from its definition.</p>
+
+<p>A very simple example could be something like this:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Person</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">surname</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">age</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">sex</span><span class="k">:</span> <span class="kt">Gender</span><span class="o">)</span></code></pre></div>
+
+<p>This case class defines a series of attributes that are relevant to correctly represent a Person in our domain. But what’s the benefit on doing it in such a way instead of just with the <code>class</code> construct? </p>
+
+<h2 id="immutability-using-val-as-default">Immutability using <code>val</code> as default</h2>
+
+<p>Defined properties are considered <code>val</code> unless stated otherwise with a <code>var</code>. This is due to scala favouring immutability whenever possible. Hence, all attributes come with a getter method for free.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">matt</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Matt&quot;</span><span class="o">,</span> <span class="s">&quot;White&quot;</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="nc">Gender</span><span class="o">.</span><span class="nc">Male</span><span class="o">)</span>
+
+<span class="c1">//We have getters defined for free</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">matt</span><span class="o">.</span><span class="n">name</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="nc">Matt</span>
+
+<span class="c1">//Setters are not present to favour immutability</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">matt</span><span class="o">.</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;Matthew&quot;</span>
+<span class="o">&lt;</span><span class="n">console</span><span class="k">&gt;:</span><span class="mi">17</span><span class="k">:</span> <span class="kt">error:</span> <span class="kt">reassignment</span> <span class="kt">to</span> <span class="kt">val</span>
+       <span class="n">matt</span><span class="o">.</span><span class="n">name</span> <span class="k">=</span> <span class="s">&quot;Matthew&quot;</span></code></pre></div>
+
+<h2 id="companion-object-with-a-default-apply-method">Companion object with a default <code>apply</code> method</h2>
+
+<p>Another advantage from case classes is the fact that a hidden companion object comes also for free, avoiding the need for the <code>new</code> keyword when instantiating a new instance of the case class.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">matt</span> <span class="k">=</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Matt&quot;</span><span class="o">,</span> <span class="s">&quot;White&quot;</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="nc">Gender</span><span class="o">.</span><span class="nc">Male</span><span class="o">)</span></code></pre></div>
+
+<p>This really helps to trim down code that creates new instances.</p>
+
+<h2 id="definition-of-equals-hashcode-tostring-and-copy">Definition of <code>equals</code>, <code>hashCode</code>, <code>toString</code> and <code>copy</code></h2>
+
+<p>For those of you that come from Java backgrounds, I’m sure you found yourself bored to death copy-pasting <code>hashCode</code> and <code>equals</code> methods for your custom classes. This is something that case classes take care for you as well, giving you default implementations for all these nice utility methods. Also for free!</p>
+
+<h3 id="equality">Equality</h3>
+
+<p>The equality comparison that the scala compiler provides on case classes is structural. This means that the equality won’t be checking if both objects are effectively the same instance, but if their data are equivalent.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">case</span> <span class="k">class</span> <span class="nc">Circle</span><span class="o">(</span><span class="n">radius</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+
+<span class="k">val</span> <span class="n">smallCircle</span> <span class="k">=</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">mediumCircle</span> <span class="k">=</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+<span class="k">val</span> <span class="n">anotherMediumCircle</span> <span class="k">=</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
+
+<span class="c1">// These two instances are not equal</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">smallCircle</span> <span class="o">==</span> <span class="n">mediumCircle</span>
+<span class="n">res4</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span>
+
+<span class="c1">// These two instances are equal even though they are not the same instance</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">mediumCircle</span> <span class="o">==</span> <span class="n">anotherMediumCircle</span> 
+<span class="n">res6</span><span class="k">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span></code></pre></div>
+
+<h3 id="tostring">toString</h3>
+
+<p>When defining simple classes, Scala also provides an implementation of the <code>toString</code> method, but I think we can all agree that is not a very useful one.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">Circle</span><span class="o">(</span><span class="n">radius</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">myCircle</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">myCircle</span><span class="o">.</span><span class="n">toString</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">Circle</span> <span class="o">=</span> <span class="nc">Circle</span><span class="k">@</span><span class="mi">8</span><span class="n">c3619e</span></code></pre></div>
+
+<p>Knowing the memory address in which the variable is stored is not telling us too much about the object, right?</p>
+
+<p>A case class provides a more meaningful <code>toString</code> implementation, that provides information about the values that the class was constructed with.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Circle</span><span class="o">(</span><span class="n">radius</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">bigCircle</span> <span class="k">=</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">bigCircle</span><span class="o">.</span><span class="n">toString</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">Circle</span> <span class="o">=</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+
+<span class="c1">// Scala always tries running the toString method on an object expression</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">bigCircle</span>
+<span class="n">res1</span><span class="k">:</span> <span class="kt">Circle</span> <span class="o">=</span> <span class="nc">Circle</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span></code></pre></div>
+
+<h3 id="copy">Copy</h3>
+
+<p>If you thought that the previous two convenience methods were useful, wait for this one. The <code>copy</code> method provides a mechanism to create a new instance of a case class, allowing to change any of its parameters by means of named parameters.</p>
+
+<p>Let’s see an example on our previous <code>Person</code> case class.</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">judith</span> <span class="k">=</span> <span class="nc">Person</span><span class="o">(</span><span class="s">&quot;Judith&quot;</span><span class="o">,</span> <span class="s">&quot;Wytt&quot;</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="nc">Gender</span><span class="o">.</span><span class="nc">Female</span><span class="o">)</span>
+
+<span class="c1">// When judith turns 23, only her age representation would change</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">grownJudith</span> <span class="k">=</span> <span class="n">judith</span><span class="o">.</span><span class="n">copy</span><span class="o">(</span><span class="n">age</span> <span class="k">=</span> <span class="n">judith</span><span class="o">.</span><span class="n">age</span><span class="o">+</span><span class="mi">1</span><span class="o">)</span>
+<span class="n">scala</span><span class="o">&gt;</span> <span class="n">grownJudith</span>
+<span class="n">res0</span><span class="k">:</span> <span class="kt">Person</span> <span class="o">=</span> <span class="nc">Person</span><span class="o">(</span><span class="nc">Judith</span><span class="o">,</span><span class="nc">Wytt</span><span class="o">,</span><span class="mi">23</span><span class="o">,</span><span class="nc">Female</span><span class="o">)</span></code></pre></div>
+
+<p>This is quite awesome, isn’t it?</p>
+
+<h2 id="extractors-or-unapply">Extractors or <code>unapply</code></h2>
+
+<p>This is probably the ultimate feature of case classes. Not because of the direct usage of this method, but more so in its usefulness for making pattern matching possible.</p>
+
+<p>The <code>unapply</code> method is defined in the companion object of the case class and it basically works exactly in the opposite way of a constructor. Its signature looks like this:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">def</span> <span class="n">unapply</span><span class="o">(</span><span class="n">object</span><span class="k">:</span> <span class="kt">S</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span></code></pre></div>
+
+<p><code>T</code> here does not always comply to a single type. When a case class has more than one parameter in its definition, it becomes a tuple of its different types. For instance, the unnaply function for the following case classes would be:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="c1">//Single parameter</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">School</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">School</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">unapply</span><span class="o">(</span><span class="n">school</span><span class="k">:</span> <span class="kt">School</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">school</span><span class="o">.</span><span class="n">name</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">//Multiple parameters</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">School</span><span class="o">(</span><span class="n">name</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">address</span><span class="k">:</span> <span class="kt">Address</span><span class="o">,</span> <span class="n">yearOfConstruction</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+<span class="k">object</span> <span class="nc">School</span> <span class="o">{</span>
+    <span class="k">def</span> <span class="n">unapply</span><span class="o">(</span><span class="n">school</span><span class="k">:</span> <span class="kt">School</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[(</span><span class="kt">String</span>, <span class="kt">Address</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> 
+        <span class="nc">Some</span><span class="o">(</span><span class="n">school</span><span class="o">.</span><span class="n">name</span><span class="o">,</span> <span class="n">school</span><span class="o">.</span><span class="n">address</span><span class="o">,</span> <span class="n">school</span><span class="o">.</span><span class="n">yearOfConstruction</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+
+<p>That’s pretty much the boilerplate that the compiler writes for us, but why is this useful?</p>
+
+<h3 id="pattern-matching">Pattern Matching</h3>
+
+<p>If there’s a functionality that heavily relies on extractors, that has to be pattern matching. Pattern matching is a technique that defines a list of possible values for a given variable to define specific behaviour based on that value. This is remarkably similar to a good old <code>switch</code> statement, but in reality is a bit more powerful than that. </p>
+
+<p>Case classes allow us to express our domains in something called <code>Algebraic Data Types (ADT)</code>. This is nothing else than a fancy name for a bunch of case classes or case objects that describe the different possible representations for a trait. For instance, in the context of an online marketing platform we could find the definition of what a contact might be:</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Contact</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Email</span><span class="o">(</span><span class="n">address</span><span class="k">:</span> <span class="kt">EmailAddress</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Contact</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Phone</span><span class="o">(</span><span class="n">countryCode</span><span class="k">:</span> <span class="kt">CountryCode</span><span class="o">,</span> <span class="n">number</span><span class="k">:</span> <span class="kt">PhoneNumber</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Contact</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Address</span><span class="o">(</span><span class="n">street</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">number</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">postcode</span><span class="k">:</span> <span class="kt">Postcode</span><span class="o">,</span> <span class="n">city</span><span class="k">:</span> <span class="kt">City</span><span class="o">,</span> <span class="n">country</span><span class="k">:</span> <span class="kt">Country</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Contact</span></code></pre></div>
+
+<p>Now imagine we’ve retrieved a customer’s contact from a given source, and we want to create the appropriate message depending on the contact’s type. Pattern matching to the rescue!</p>
+
+<div class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">val</span> <span class="n">message</span><span class="k">:</span> <span class="kt">Message</span> <span class="o">=</span> <span class="n">contact</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">Email</span><span class="o">(</span><span class="n">a</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">buildEmail</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">Phone</span><span class="o">(</span><span class="n">c</span><span class="o">,</span><span class="n">n</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">buildSms</span><span class="o">(</span><span class="n">c</span><span class="o">,</span><span class="n">n</span><span class="o">)</span>
+    <span class="k">case</span> <span class="nc">Address</span><span class="o">(</span><span class="n">s</span><span class="o">,</span><span class="n">n</span><span class="o">,</span><span class="n">p</span><span class="o">,</span><span class="n">ci</span><span class="o">,</span><span class="n">co</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">buildCard</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">p</span><span class="o">,</span> <span class="n">ci</span><span class="o">,</span> <span class="n">co</span><span class="o">)</span>
+<span class="o">)</span></code></pre></div>
+
+<p>Scala’s pattern matching syntax comes into play after the <code>match</code> keyword. A list of expressions are listed using the <code>case</code> keyword (what a coincidence, right? ;) The <code>contact</code> variable is checked against this list and it applies the logic on the right hand side of the <code>=&gt;</code> symbol on the first match. The way the list uses extractors could read as follows:</p>
+
+<ul>
+  <li>Is the contact an Email? If so, define <code>a</code> as the email address we built that Email case class with and run buildEmail with the email address <code>a</code> as its parameter.</li>
+  <li>Otherwise, is the contact a Phone? If so, define <code>c</code> and <code>n</code> as the country code and phone number we used to build the Phone case class and run buildSms with <code>c</code> and <code>n</code> as parameters.</li>
+  <li>Well, you get the gist ;)</li>
+</ul>
+
+<p>Given we’ve defined our trait as <code>sealed</code> we know that this pattern matching is exhaustive and that we’re covering all possible scenarios for a <code>Contact</code>.</p>
+
+<h1 id="wrapping-up">Wrapping up</h1>
+
+<p>In this post we’ve seen what a case class is and why it’s useful. I’m still trying to understand how much logic should these classes contain or if they should aim to be as lean as possible. In future posts I’d like to discuss these dichotomies and share how I think these classes should be put to use in order to improve readability, maintainability and testability. </p>
+
+
+      
+<div class="tags">
+    <span>Tags:</span>
+    
+        <a href="/tag/scala">scala</a>
+        
+        -
+        
+    
+        <a href="/tag/case-class">case-class</a>
+        
+    
+</div>
+
+
+      <a href="https://twitter.com/share" class="twitter-share-button share-item" data-via="hasumedic" data-size="large" data-count="none">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      
+
+      </article>
+
+    </section>
+</div>
+
+<div class="push"></div>
+  <footer>
+    <aside class="wrap">
+      <ol class="prev-posts">
+        <p class="list-title">Recent Posts</p>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/case-classes" title="Scala case classes">Scala case classes </a></span>
+              <span class="date">Jun 21, 2016</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/classes-and-objects" title="Scala classes and objects">Scala classes and objects </a></span>
+              <span class="date">Feb 23, 2016</span>
+            </li>
+         <!-- for1 -->
+            <li>
+              <span class="recent-title"><a href="/blog/scala-exchange-2015" title="Scala eXchange 2015">Scala eXchange 2015 </a></span>
+              <span class="date">Dec 16, 2015</span>
+            </li>
+        
+      </ol>
+
+      <div class="social">
+        <ul>
+            <li>
+                <a id="mail" href="mailto:hasumedic@gmail.com">
+                    <span class="foot-link">
+                        <span class="icon-mail"></span> Contact Me
+                    </span>
+                </a>
+            </li>
+
+            
+            <li>
+                <a id="twit" href="https://twitter.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-twitter"></span> @hasumedic</span></a>
+            </li>
+            
+
+
+            
+            <li>
+                <a id="github" href="https://github.com/hasumedic" target="_blank"><span class="foot-link"><span class="icon-github"></span> Github</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    </aside>
+    <small>&copy; 2016 Alex Salguero. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://jekyll.gtat.me/about">Balzac</a> theme.</small>
+  </footer>
+
+
+    <script>
+        if (document.location.hostname.search("hasumedic.com") !== -1) {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-65046797-1', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
+
+
+  <!-- If they're out, get some from the cellar -->
+  <script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+  <script src="/assets/js/retina.min.js"></script>
+
+  <!-- Custom JS -->
+  <script src="/assets/js/scripts.js"></script>
+
+
+  </body>
+</html>
+
