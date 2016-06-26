@@ -96,8 +96,8 @@ defaultLift.levels // Int = 10
 defaultLeft.hasUndergroundLevels // Boolean = false
 
 val customLift = new Lift(hasUndergroundLevels = true, levels = 3)
-defaultLift.levels // Int = 3
-defaultLeft.hasUndergroundLevels // Boolean = true
+customLift.levels // Int = 3
+customLift.hasUndergroundLevels // Boolean = true
 {% endhighlight %}
 
 # Objects
