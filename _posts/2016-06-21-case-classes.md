@@ -4,6 +4,7 @@ title: Scala case classes
 description: "Overview on what a case class is and what advantages introduces when programming in Scala"
 category: blog
 tags: [scala,case-class]
+comments: true
 image:
   feature: case-classes/case-classes.jpg
 ---
